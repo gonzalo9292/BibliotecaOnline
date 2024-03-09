@@ -58,12 +58,18 @@ public class VentanaPrincipal extends JFrame{
 	      
 	 
 	        JPanel panelNorte = new JPanel();
+	        panelNorte.setBackground(Color.darkGray);
 	      
 	        JPanel panelCentral = new JPanel();
+	       
 	        
+	        JLabel labelFoto = new JLabel();
+	        labelFoto.setIcon(new ImageIcon("resorces/images/iconos/biblioteca2 (1).png"));
+	        panelCentral.add(labelFoto);
 	      
 	    
 	        JPanel panelSur = new JPanel();
+	        panelSur.setBackground(Color.DARK_GRAY);
 	       
 	      
 	      
@@ -81,12 +87,15 @@ public class VentanaPrincipal extends JFrame{
 	        botonDevolver.setPreferredSize(new Dimension(200,30));
 	        JButton botonIniciarSesion = new JButton("IniciarSesion");
 			botonIniciarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			 botonIniciarSesion.setPreferredSize(new Dimension(170,25));
+			botonIniciarSesion.setIcon(new ImageIcon("resorces/images/iconos/usuario.png"));
+		    botonIniciarSesion.setPreferredSize(new Dimension(150,25));
 	        JButton botonRegistrarse = new JButton("Registrarse");
 			botonRegistrarse.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			botonRegistrarse.setPreferredSize(new Dimension(170,25));
+			botonRegistrarse.setPreferredSize(new Dimension(150,25));
+			botonRegistrarse.setIcon(new ImageIcon("resorces/images/iconos/registrarse.png"));
 			
 	        JLabel titulo = new JLabel("TODOTECA");
+	        titulo.setForeground(Color.WHITE);            
 	    	Font fuente = new Font("Arial",Font.BOLD,30);
 	        titulo.setFont(fuente);
 			titulo.setLayout(new FlowLayout(FlowLayout.CENTER));
