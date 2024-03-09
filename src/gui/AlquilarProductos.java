@@ -36,7 +36,7 @@ public class AlquilarProductos extends JFrame{
 		
 		   setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        setSize(700, 500);
-	        setTitle("BibliotecaOnline");
+	        setTitle("AlquilarProductos");
 	        
 	        setLocation((int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 	                (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
@@ -48,7 +48,7 @@ public class AlquilarProductos extends JFrame{
 			JPanel panelNorte = new JPanel(new GridLayout(1,3));
 			
 			 JMenuBar menuBar = new JMenuBar();
-			 menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+			 menuBar.setLayout(new FlowLayout(FlowLayout.CENTER));
 			JMenu menu = new JMenu("Productos Dsiponibles:");
 			JMenuItem libros = new JMenuItem("Libros");
 			JMenuItem juegos = new JMenuItem("Juegos");
@@ -65,13 +65,13 @@ public class AlquilarProductos extends JFrame{
 			JLabel label = new JLabel("ALQUILAR PRODUCTOS");
 		   	Font fuente = new Font("Arial",Font.BOLD,18);
 	        label.setFont(fuente);
+	        label.setLayout(new FlowLayout(FlowLayout.CENTER));
 			JButton alquilar = new JButton("Alquilar");
 			ImageIcon icono = new ImageIcon("resorces/images/iconos/carrito.png");
 			alquilar.setIcon(icono);
 			alquilar.setBackground(Color.white);
 			
 			
-			label.setLayout(new FlowLayout(FlowLayout.CENTER));
 			panelPrincipal.add(panelNorte,BorderLayout.NORTH);
 			panelNorte.add(menuBar);
 			panelNorte.add(label);

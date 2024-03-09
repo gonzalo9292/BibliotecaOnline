@@ -51,59 +51,66 @@ public class VentanaPrincipal extends JFrame{
 	        
 	     
 
-	        JPanel panelInicial = new JPanel(new GridLayout(3,1));
+	        JPanel panelInicial = new JPanel(new BorderLayout());
 	        panelInicial.setBackground(new Color(173, 216, 230));
 	        
 
 	      
 	 
-	        JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	        JPanel panelNorte = new JPanel();
 	      
 	        JPanel panelCentral = new JPanel();
+	        
 	      
 	    
 	        JPanel panelSur = new JPanel();
 	       
 	      
 	      
-	        JPanel panelBotones = new JPanel(new GridLayout(1,2));
-	        JPanel panelBotones2 = new JPanel(new GridLayout(1,2));
+	        
 	        
 	        
 	        JButton botonAyuda = new JButton(new ImageIcon("resorces/images/iconos/icono2.png"));
 	        botonAyuda.setPreferredSize(new Dimension (27,27));
+			botonAyuda.setLayout(new FlowLayout(FlowLayout.LEFT));
 	       
 
 	        JButton botonAlquilar = new JButton("Alquilar Productos");
+	        botonAlquilar.setPreferredSize(new Dimension(200,30));
 	        JButton botonDevolver = new JButton("Devolver Productos");
+	        botonDevolver.setPreferredSize(new Dimension(200,30));
 	        JButton botonIniciarSesion = new JButton("IniciarSesion");
+			botonIniciarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			 botonIniciarSesion.setPreferredSize(new Dimension(170,25));
 	        JButton botonRegistrarse = new JButton("Registrarse");
-	        
+			botonRegistrarse.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			botonRegistrarse.setPreferredSize(new Dimension(170,25));
+			
 	        JLabel titulo = new JLabel("TODOTECA");
 	    	Font fuente = new Font("Arial",Font.BOLD,30);
 	        titulo.setFont(fuente);
+			titulo.setLayout(new FlowLayout(FlowLayout.CENTER));
 	        
 
 	        add(panelInicial);
-	        panelInicial.add(panelNorte);
-	        panelInicial.add(panelCentral);
-	        panelInicial.add(panelSur);
+	        panelInicial.add(panelNorte,BorderLayout.NORTH);
+	        panelInicial.add(panelCentral,BorderLayout.CENTER);
+	        panelInicial.add(panelSur,BorderLayout.SOUTH);
 	       
 	        
-	        
+	        panelNorte.add(botonIniciarSesion); 
 	        panelNorte.add(botonAyuda);
 	        panelNorte.add(titulo);
+	        panelNorte.add(botonRegistrarse);
 	     
 	        
-	        panelCentral.add(panelBotones);
-	        panelSur.add(panelBotones2);
+	  
+	       
 	      
-	        panelBotones.add(botonIniciarSesion);
-	        panelBotones.add(botonRegistrarse);
-	        panelBotones2.add(botonAlquilar);
-	        panelBotones2.add(botonDevolver);
-	        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER,20,0));
-	        panelBotones2.setLayout(new FlowLayout(FlowLayout.CENTER,20,0));
+	    
+	        panelSur.add(botonAlquilar);
+	        panelSur.add(botonDevolver);
+	       
 
 
 
