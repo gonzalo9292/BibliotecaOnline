@@ -32,6 +32,8 @@ public class VentanaIniciarSesion extends JFrame{
 	
 
 			JPanel panelIniciarSesion  = new JPanel();
+			panelIniciarSesion.setBackground(Color.darkGray);
+		
 			JPanel panelBotones = new JPanel();
 			JPanel userPass = new JPanel();
 			JPanel pUsuario = new JPanel();
@@ -46,6 +48,7 @@ public class VentanaIniciarSesion extends JFrame{
 			JLabel lIniciarSesion = new JLabel("Iniciar sesion");
 			Font fuente = new Font("Arial",Font.BOLD,25);
 	        lIniciarSesion.setFont(fuente);
+	        lIniciarSesion.setForeground(Color.WHITE);
 			JLabel lUsurario = new JLabel("   Usuario    ");
 			JLabel lContraseña = new JLabel("Contraseña");
 			

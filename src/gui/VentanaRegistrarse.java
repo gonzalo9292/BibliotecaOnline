@@ -50,6 +50,7 @@ public class VentanaRegistrarse extends JFrame{
 			setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
 			
 			JLabel Registrarse = new JLabel            ("Registrarse");
+			Registrarse.setForeground(Color.WHITE);
 			Font fuente = new Font("Arial",Font.BOLD,30);
 	        Registrarse.setFont(fuente);
 			JLabel DNI = new JLabel            ("               DNI :            ");
@@ -79,6 +80,7 @@ public class VentanaRegistrarse extends JFrame{
 			JPanel central = new JPanel();
 			
 			JPanel pRegistrarse = new JPanel();
+			pRegistrarse.setBackground(Color.darkGray);
 			JPanel pNombre = new JPanel();
 			JPanel pApellido = new JPanel();
 			JPanel pDNI = new JPanel();

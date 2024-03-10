@@ -47,6 +47,8 @@ public class AlquilarProductos extends JFrame{
 			add(panelPrincipal);
 			JPanel panelNorte = new JPanel(new GridLayout(1,3));
 			
+			
+			
 			 JMenuBar menuBar = new JMenuBar();
 			 menuBar.setLayout(new FlowLayout(FlowLayout.CENTER));
 			JMenu menu = new JMenu("Productos Dsiponibles:");
@@ -61,6 +63,7 @@ public class AlquilarProductos extends JFrame{
 			 menuBar.add(menu);
 			 menuBar.setBackground(Color.white);
 		     setJMenuBar(menuBar);
+		    
 		     
 			JLabel label = new JLabel("ALQUILAR PRODUCTOS");
 		   	Font fuente = new Font("Arial",Font.BOLD,18);
@@ -70,6 +73,7 @@ public class AlquilarProductos extends JFrame{
 			ImageIcon icono = new ImageIcon("resorces/images/iconos/carrito.png");
 			alquilar.setIcon(icono);
 			alquilar.setBackground(Color.white);
+			
 			
 			
 			panelPrincipal.add(panelNorte,BorderLayout.NORTH);
