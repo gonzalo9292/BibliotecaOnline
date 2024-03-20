@@ -51,14 +51,26 @@ public class AlquilarProductos extends JFrame{
 			
 			 JMenuBar menuBar = new JMenuBar();
 			 menuBar.setLayout(new FlowLayout(FlowLayout.CENTER));
-			JMenu menu = new JMenu("Productos Dsiponibles:");
+			JMenu menu = new JMenu("Filtrar");
+			JMenu menu2 = new JMenu("Producto");
+			JMenu menu3 = new JMenu("Precio");
+			
 			JMenuItem libros = new JMenuItem("Libros");
 			JMenuItem juegos = new JMenuItem("Juegos");
 			JMenuItem peliculas = new JMenuItem("Peliculas");
 			
-			menu.add(libros);
-			menu.add(juegos);
-			menu.add(peliculas);
+			JMenuItem masmenos = new JMenuItem("mas-menos");
+			JMenuItem menosmas = new JMenuItem("menos-mas");
+			
+			menu.add(menu2);
+			menu.add(menu3);
+			
+			menu2.add(libros);
+			menu2.add(juegos);
+			menu2.add(peliculas);
+			
+			menu3.add(masmenos);
+			menu3.add(menosmas);
 			
 			 menuBar.add(menu);
 			 menuBar.setBackground(Color.white);

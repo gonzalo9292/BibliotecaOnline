@@ -39,6 +39,7 @@ public class VentanaIniciarSesion extends JFrame{
 			JPanel pUsuario = new JPanel();
 			JPanel pContraseña = new JPanel();
 			userPass.setLayout(new GridLayout(2,1));
+			
 	
 			JButton bInicioSecion = new JButton("Iniciar sesión");
 		

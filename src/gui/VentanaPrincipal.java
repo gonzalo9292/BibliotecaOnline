@@ -77,7 +77,7 @@ public class VentanaPrincipal extends JFrame{
 	        
 	        
 	        JButton botonAyuda = new JButton(new ImageIcon("resorces/images/iconos/icono2.png"));
-	        botonAyuda.setPreferredSize(new Dimension (27,27));
+	        botonAyuda.setPreferredSize(new Dimension (26,26));
 			botonAyuda.setLayout(new FlowLayout(FlowLayout.LEFT));
 	       
 
@@ -93,6 +93,9 @@ public class VentanaPrincipal extends JFrame{
 			botonRegistrarse.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			botonRegistrarse.setPreferredSize(new Dimension(150,25));
 			botonRegistrarse.setIcon(new ImageIcon("resorces/images/iconos/registrarse.png"));
+			
+			JButton botonPerfil = new JButton("Perfil");
+			botonRegistrarse.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			
 	        JLabel titulo = new JLabel("TODOTECA");
 	        titulo.setForeground(Color.WHITE);            
