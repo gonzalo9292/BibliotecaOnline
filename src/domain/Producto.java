@@ -1,15 +1,45 @@
 package domain;
 
 public class Producto {
+	private String id;
 	private String titulo;
-	private String precio;
+	private double precio;
 	
 	
-	public Producto(String titulo, String precio) {
+
+	
+	
+
+
+
+	public Producto(String id, String titulo, double precio) {
 		super();
+		this.id = id;
 		this.titulo = titulo;
 		this.precio = precio;
 	}
+
+
+
+
+
+
+	public String getId() {
+		return id;
+	}
+
+
+
+
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+
+
 
 
 	public String getTitulo() {
@@ -17,25 +47,43 @@ public class Producto {
 	}
 
 
+
+
+
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
 
-	public String getPrecio() {
+
+
+	public double getPrecio() {
 		return precio;
 	}
 
 
-	public void setPrecio(String precio) {
+
+
+
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "Producto [titulo=" + titulo + ", precio=" + precio + "]";
+		return "Producto [id=" + id + ", titulo=" + titulo + ", precio=" + precio + "]";
 	}
+
+
+
+
+
 	
 	
 	

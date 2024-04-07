@@ -1,10 +1,12 @@
 package domain;
 
 public class Juego extends Producto{
+	
 	private String plataforma;
 
-	public Juego(String titulo, String precio, String plataforma) {
-		super(titulo, precio);
+	
+	public Juego(String id, String titulo, double precio, String plataforma) {
+		super(id, titulo, precio);
 		this.plataforma = plataforma;
 	}
 

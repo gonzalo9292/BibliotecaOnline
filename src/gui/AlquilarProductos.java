@@ -10,6 +10,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +28,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+import db.DBManager;
+import domain.Juego;
+import domain.Libro;
+import domain.Pelicula;
 
 public class AlquilarProductos extends JFrame{
 	
@@ -92,54 +106,279 @@ public class AlquilarProductos extends JFrame{
 			panelNorte.add(menuBar);
 			panelNorte.add(label);
 			panelNorte.add(alquilar);
-			 DefaultTableModel modeloTabla = new DefaultTableModel();
+			
+			
+			DefaultTableModel modeloLibro = new DefaultTableModel();
 
 		        // Añadir columnas al modelo de tabla
-		        modeloTabla.addColumn("ID");
-		        modeloTabla.addColumn("Nombre");
-		        modeloTabla.addColumn("Precio");
+		     modeloLibro.addColumn("ID");
+		     modeloLibro.addColumn("Nombre");
+		     modeloLibro.addColumn("Precio");
+		     modeloLibro.addColumn("Autor");
 
-		        // Añadir filas al modelo de tabla
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-
+		      // Añadir filas al modelo de tabla
+        
 		        // Crear tabla con el modelo de datos
-		        JTable tabla = new JTable(modeloTabla);
+		     JTable tablaLibro = new JTable(modeloLibro);
 
 		        // Crear contenedor y añadir la tabla
-		        JScrollPane scrollPane = new JScrollPane(tabla);
+		     JScrollPane scrollPanelLibro = new JScrollPane(tablaLibro);
+		     
+		     
+		     
+		     
+		     
+		     
+		     
+		     DefaultTableModel modeloJuego = new DefaultTableModel();
+
+		        // Añadir columnas al modelo de tabla
+		     modeloJuego.addColumn("ID");
+		     modeloJuego.addColumn("Nombre");
+		     modeloJuego.addColumn("Precio");
+		     modeloJuego.addColumn("Plataforma");
+
+		      // Añadir filas al modelo de tabla
+     
+		        // Crear tabla con el modelo de datos
+		     JTable tablaJuego = new JTable(modeloJuego);
+
+		        // Crear contenedor y añadir la tabla
+		     JScrollPane scrollPanelJuego = new JScrollPane(tablaJuego);
+		     
+		     
+		     
+		     
+		     
+		     DefaultTableModel modeloPelicula = new DefaultTableModel();
+		    
+
+		        // Añadir columnas al modelo de tabla
+		     modeloPelicula.addColumn("ID");
+		     modeloPelicula.addColumn("Nombre");
+		     modeloPelicula.addColumn("Precio");
+		     modeloPelicula.addColumn("Duracion");
+
+		      // Añadir filas al modelo de tabla
+  
+		        // Crear tabla con el modelo de datos
+		     JTable tablaPelicula = new JTable(modeloPelicula);
+		     
+
+		        // Crear contenedor y añadir la tabla
+		     JScrollPane scrollPanelPelicula = new JScrollPane(tablaPelicula);
+		     
+		       
 		       
 		        
-		        panelPrincipal.add(scrollPane,BorderLayout.CENTER);
+		        //panelPrincipal.add(scrollPane,BorderLayout.CENTER);
+		        
+		   
+		        
+		        
+		        libros.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						panelPrincipal.removeAll();
+						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
+						// TODO Auto-generated method stub
+						List<Libro> listaLibros = DBManager.obtenerLibrosBD();
+					        // Actualiza la tabla con la nueva lista de libros.
+					    actualizarTablaLibros(listaLibros,modeloLibro);
+						panelPrincipal.add(scrollPanelLibro,BorderLayout.CENTER);
+						panelPrincipal.revalidate();
+				        panelPrincipal.repaint();
+				        masmenos.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Libro> listaLibros2 = OrdenarLibrosDeMayoraMenor(listaLibros);
+								 actualizarTablaLibros(listaLibros2,modeloLibro);
+									panelPrincipal.add(scrollPanelLibro,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				        
+				        menosmas.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Libro> listaLibros2 = OrdenarLibrosDeMenoraMayor(listaLibros);                   
+								 actualizarTablaLibros(listaLibros2,modeloLibro);
+									panelPrincipal.add(scrollPanelLibro,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				       
+				       
+				       
+					}
+				});
+		        
+		        juegos.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						panelPrincipal.removeAll();
+						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
+						// TODO Auto-generated method stub
+						List<Juego> listaJuegos = DBManager.obtenerJuegosBD();
+					        // Actualiza la tabla con la nueva lista de libros.
+					    actualizarTablaJuegos(listaJuegos,modeloJuego);
+						panelPrincipal.add(scrollPanelJuego,BorderLayout.CENTER);
+						panelPrincipal.revalidate();
+				        panelPrincipal.repaint();
+					}
+				});
+		        
+		        
+		        peliculas.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						panelPrincipal.removeAll();
+						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
+						// TODO Auto-generated method stub
+						List<Pelicula> listaPeliculas = DBManager.obtenerPeliculasBD();
+					        // Actualiza la tabla con la nueva lista de libros.
+					    actualizarTablaPeliculas(listaPeliculas,modeloPelicula);
+						panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
+						panelPrincipal.revalidate();
+				        panelPrincipal.repaint();
+					}
+				});
+		        
+		        masmenos.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+		        
+		        
+		        
 		
 		
 			setVisible(true);
 	}
+	
+	
+	
+    
+    public void actualizarTablaLibros(List<Libro> lista,DefaultTableModel modeloLibro) {
+      modeloLibro.setRowCount(0);
+ 
+      	
+      	 for(Libro l : lista) {
+      	        modeloLibro.addRow(new Object[] {l.getId(), l.getTitulo(), l.getPrecio(), l.getAutor()});
+      	    }
+      	
+      }
+    
+    public void actualizarTablaJuegos(List<Juego> lista,DefaultTableModel modeloJuego) {
+        modeloJuego.setRowCount(0);
+     
+        	
+        	 for(Juego j : lista) {
+        	        modeloJuego.addRow(new Object[] {j.getId(), j.getTitulo(), j.getPrecio(), j.getPlataforma()});
+        	    }
+        	
+        }
+    public void actualizarTablaPeliculas(List<Pelicula> lista,DefaultTableModel modeloPelicula) {
+        modeloPelicula.setRowCount(0);
+       
+        	
+        	 for(Pelicula p : lista) {
+        	        modeloPelicula.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), p.getDuracion()});
+        	    }
+        	
+        	 
+        	 
+        }
+    
+   public static class comparadorLibro implements Comparator<Libro>{
+
+	@Override
+	public int compare(Libro o1, Libro o2) {
+		// TODO Auto-generated method stub
+		return Double.compare(o1.getPrecio(), o2.getPrecio());
+	}
+	   
+   }
+   public static class comparadorJuego implements Comparator<Juego>{
+
+		@Override
+		public int compare(Juego o1, Juego o2) {
+			// TODO Auto-generated method stub
+			return  Double.compare(o1.getPrecio(), o2.getPrecio());
+	}
+		   
+   }
+   public static class comparadorPelicula implements Comparator<Pelicula>{
+
+		@Override
+		public int compare(Pelicula o1, Pelicula o2) {
+			// TODO Auto-generated method stub
+			return  Double.compare(o1.getPrecio(), o2.getPrecio());
+	}
+		   
+   }
+   
+   
+   public List<Libro> OrdenarLibrosDeMayoraMenor(List<Libro> lista) {
+
+	   Collections.sort(lista,new comparadorLibro());
+       Collections.reverse(lista);
+	                
+	   return lista;
+	   
+	   
+   }
+   public List<Libro> OrdenarLibrosDeMenoraMayor(List<Libro> lista) {
+	   Collections.sort(lista,new comparadorLibro());
+	   return lista;
+	   
+	   
+   }
+   public List<Juego> OrdenarJuegosDeMayoraMenor(List<Juego> lista) {
+	 
+	   Collections.sort(lista,new comparadorJuego());
+	   Collections.reverse(lista);
+	   return lista;
+	   
+	   
+   }
+   public List<Juego> OrdenarJuegosDeMenoraMayor(List<Juego> lista) {
+
+	   Collections.sort(lista,new comparadorJuego());
+	   return lista;
+	   
+	   
+   }
+   public List<Pelicula> OrdenarPeliculasDeMayoraMenor(List<Pelicula> lista) {
+	 
+	   Collections.sort(lista,new comparadorPelicula());
+	   Collections.reverse(lista);
+	   return lista;
+	   
+	   
+   }
+   public List<Pelicula> OrdenarPeliculasDeMenoraMayor(List<Pelicula> lista) {
+	   Collections.sort(lista,new comparadorPelicula());
+	   return lista;
+	   
+	   
+   }
+    
+ 
+  
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -151,5 +390,9 @@ public class AlquilarProductos extends JFrame{
 			}
 		});
 	}
+
+
+
+
 
 }

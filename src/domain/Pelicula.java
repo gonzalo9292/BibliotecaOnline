@@ -3,8 +3,11 @@ package domain;
 public class Pelicula extends Producto{
 	private int duracion;
 
-	public Pelicula(String titulo, String precio, int duracion) {
-		super(titulo, precio);
+	
+	
+
+	public Pelicula(String id, String titulo, double precio, int duracion) {
+		super(id, titulo, precio);
 		this.duracion = duracion;
 	}
 
