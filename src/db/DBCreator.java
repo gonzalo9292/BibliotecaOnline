@@ -7,6 +7,8 @@ public class DBCreator {
 	
 	public static void main(String[] args) throws SQLException {
 		
+		DBManager.limpiarBd();
+		
 		System.out.println("Conectando con la base de datos...");
 		
 		//Creacion de tablas

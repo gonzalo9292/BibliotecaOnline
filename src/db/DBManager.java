@@ -17,7 +17,7 @@ import domain.Usuario;
 public class DBManager {
 	
 
-	private static final String URL = "jdbc:sqlite:resorces/db/Biblioteca.db";
+	private static final String URL = "jdbc:sqlite:resorces/db/basededatos.db";
 	
 	
 	
@@ -138,22 +138,42 @@ public class DBManager {
 		public static void añadirJuegosDisponibles() {
 			try (Connection conn = obtenerConexion();
 					PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Juego (id, titulo, precio, plataforma) VALUES "
-					        + "('15', 'The Elder Scrolls V: Skyrim', 39.99, 'PC'), "
-					        + "('16', 'Assassis Creed Valhalla', 59.99, 'PlayStation 5'), "
-					        + "('17', 'Super Smash Bros. Ultimate', 59.99, 'Nintendo Switch'), "
-					        + "('18', 'Spider-Man: Miles Morales', 49.99, 'PlayStation 5'), "
-					        + "('19', 'Halo Infinite', 59.99, 'Xbox Series X'), "
-					        + "('20', 'Resident Evil Village', 49.99, 'PC'), "
-					        + "('21', 'Cyberpunk 2077', 49.99, 'PlayStation 5'), "
-					        + "('22', 'Legend of Zelda: Skyward Sword HD', 59.99, 'Nintendo Switch'), "
-					        + "('23', 'Forza Horizon 5', 59.99, 'Xbox Series X'), "
-					        + "('24', 'Deathloop', 59.99, 'PlayStation 5'), "
-					        + "('25', 'Ratchet & Clank: Rift Apart', 69.99, 'PlayStation 5'), "
-					        + "('26', 'Pokémon Brilliant Diamond and Shining Pearl', 59.99, 'Nintendo Switch'), "
-					        + "('27', 'Final Fantasy VII Remake Intergrade', 69.99, 'PlayStation 5'), "
-					        + "('28', 'God of War Ragnarok', 69.99, 'PlayStation 5'), "
-					        + "('29', 'Far Cry 6', 59.99, 'PlayStation 5'), "
-					        + "('30', 'Battlefield 2042', 59.99, 'PC')");){
+						    + "('36', 'The Legend of Zelda: Breath of the Wild', 59.99, 'Nintendo Switch'), "
+						    + "('37', 'Red Dead Redemption 2', 49.99, 'PlayStation 4'), "
+						    + "('38', 'Grand Theft Auto V', 29.99, 'PC'), "
+						    + "('39', 'The Witcher 3: Wild Hunt', 39.99, 'PlayStation 4'), "
+						    + "('40', 'Minecraft', 19.99, 'PC'), "
+						    + "('41', 'Portal 2', 9.99, 'PC'), "
+						    + "('42', 'The Last of Us Part II', 49.99, 'PlayStation 4'), "
+						    + "('43', 'Horizon Zero Dawn', 19.99, 'PlayStation 4'), "
+						    + "('44', 'Cyberpunk 2077', 59.99, 'PC'), "
+						    + "('45', 'Animal Crossing: New Horizons', 59.99, 'Nintendo Switch'), "
+						    + "('46', 'Dark Souls III', 29.99, 'PC'), "
+						    + "('47', 'Fallout 4', 19.99, 'PC'), "
+						    + "('48', 'FIFA 22', 59.99, 'PlayStation 5'), "
+						    + "('49', 'Call of Duty: Black Ops Cold War', 59.99, 'PlayStation 5'), "
+						    + "('50', 'Fortnite', 0.00, 'PC'), "
+						    + "('51', 'Among Us', 4.99, 'PC'), "
+						    + "('52', 'League of Legends', 0.00, 'PC'), "
+						    + "('53', 'Valorant', 0.00, 'PC'), "
+						    + "('54', 'Apex Legends', 0.00, 'PC'), "
+						    + "('55', 'Genshin Impact', 0.00, 'PC'), "
+						    + "('56', 'Overwatch', 19.99, 'PC'), "
+						    + "('57', 'Counter-Strike: Global Offensive', 0.00, 'PC'), "
+						    + "('58', 'World of Warcraft', 14.99, 'PC'), "
+						    + "('59', 'Minecraft Dungeons', 19.99, 'PC'), "
+						    + "('60', 'Assassins Creed Odyssey', 59.99, 'PC'), "
+						    + "('61', 'Doom Eternal', 59.99, 'PC'), "
+						    + "('62', 'Star Wars Jedi: Fallen Order', 49.99, 'PC'), "
+						    + "('63', 'Stardew Valley', 14.99, 'PC'), "
+						    + "('64', 'The Elder Scrolls Online', 19.99, 'PC'), "
+						    + "('65', 'Tom Clancys Rainbow Six Siege', 19.99, 'PC'), "
+						    + "('66', 'Sekiro: Shadows Die Twice', 59.99, 'PC'), "
+						    + "('67', 'The Sims 4', 39.99, 'PC'), "
+						    + "('68', 'Rust', 39.99, 'PC'), "
+						    + "('69', 'Rocket League', 19.99, 'PC'), "
+						    + "('70', 'Cities: Skylines', 29.99, 'PC'), "
+						    + "('71', 'Subnautica', 24.99, 'PC')")){
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -163,46 +183,47 @@ public class DBManager {
 		public static void añadirPeliculasDisponibles() {
 			try (Connection conn = obtenerConexion();
 					PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Pelicula (id, titulo, precio, duracion) VALUES "
-							+ "('1', '1984', 15.99, 'George Orwell'), "
-							+ "('2', 'To Kill a Mockingbird', 12.50, 'Harper Lee'), "
-							+ "('3', 'The Great Gatsby', 10.99, 'F. Scott Fitzgerald'), "
-							+ "('4', 'Harry Potter and the Philosophers Stone', 19.99, 'J.K. Rowling'), "
-							+ "('5', 'The Catcher in the Rye', 9.95, 'J.D. Salinger'), "
-							+ "('6', 'Pride and Prejudice', 11.25, 'Jane Austen'), "
-							+ "('7', 'The Hobbit', 14.50, 'J.R.R. Tolkien'), "
-							+ "('8', 'Lord of the Flies', 8.99, 'William Golding'), "
-							+ "('9', 'Brave New World', 13.75, 'Aldous Huxley'), "
-							+ "('10', 'The Lord of the Rings: The Fellowship of the Ring', 22.99, 'J.R.R. Tolkien'), "
-							+ "('11', 'Moby-Dick', 16.50, 'Herman Melville'), "
-							+ "('12', 'The Hunger Games', 11.99, 'Suzanne Collins'), "
-							+ "('13', 'The Da Vinci Code', 14.25, 'Dan Brown'), "
-							+ "('14', 'Gone with the Wind', 17.95, 'Margaret Mitchell'), "
-							+ "('15', 'The Hitchhikers Guide to the Galaxy', 10.50,'Douglas Adams'), "
-							+ "('16', 'Inception', 9.99, 'Christopher Nolan'), "
-							+ "('17', 'The Shawshank Redemption', 12.75, 'Frank Darabont'), "
-							+ "('18', 'The Godfather', 14.99, 'Francis Ford Coppola'), "
-							+ "('19', 'Pulp Fiction', 11.25, 'Quentin Tarantino'), "
-							+ "('20', 'Fight Club', 13.50, 'David Fincher'), "
-							+ "('21', 'Forrest Gump', 16.99, 'Robert Zemeckis'), "
-							+ "('22', 'The Matrix', 9.50, 'Lana Wachowski, Lilly Wachowski'), "
-							+ "('23', 'Titanic', 18.75, 'James Cameron'), "
-							+ "('24', 'The Silence of the Lambs', 15.25, 'Jonathan Demme'), "
-							+ "('25', 'The Dark Knight', 19.50, 'Christopher Nolan'), "
-							+ "('26', 'Schindlers List', 14.25, 'Steven Spielberg'), "
-							+ "('27', 'Gladiator', 12.99, 'Ridley Scott'), "
-							+ "('28', 'The Lord of the Rings: The Return of the King', 21.99, 'Peter Jackson'), "
-							+ "('29', 'Goodfellas', 17.25, 'Martin Scorsese'), "
-							+ "('30', 'The Lion King', 11.50, 'Roger Allers, Rob Minkoff'), "
-							+ "('31', 'The Green Mile', 16.25, 'Frank Darabont'), "
-							+ "('32', 'Inglourious Basterds', 14.99, 'Quentin Tarantino'), "
-							+ "('33', 'The Departed', 13.75, 'Martin Scorsese'), "
-							+ "('34', 'Saving Private Ryan', 15.50, 'Steven Spielberg'), "
-							+ "('35', 'The Prestige', 11.99, 'Christopher Nolan'), "
-							+ "('36', 'The Shawshank Redemption', 12.75, 'Frank Darabont'), "
-							+ "('37', 'The Godfather: Part II', 15.99, 'Francis Ford Coppola'), "
-							+ "('38', 'The Dark Knight Rises', 18.50, 'Christopher Nolan'), "
-							+ "('39', 'Interstellar', 17.75, 'Christopher Nolan'), "
-							+ "('40', 'The Departed', 13.75, 'Martin Scorsese')");){
+						    + "('71', '1984', 15.99, 120), "
+						    + "('72', 'To Kill a Mockingbird', 12.50, 140), "
+						    + "('73', 'The Great Gatsby', 10.99, 160), "
+						    + "('74', 'Harry Potter and the Philosophers Stone', 19.99, 130), "
+						    + "('75', 'The Catcher in the Rye', 9.95, 125), "
+						    + "('76', 'Pride and Prejudice', 11.25, 170), "
+						    + "('77', 'The Hobbit', 14.50, 150), "
+						    + "('78', 'Lord of the Flies', 8.99, 105), "
+						    + "('79', 'Brave New World', 13.75, 135), "
+						    + "('80', 'The Lord of the Rings: The Fellowship of the Ring', 22.99, 195), "
+						    + "('81', 'Moby-Dick', 16.50, 170), "
+						    + "('82', 'The Hunger Games', 11.99, 145), "
+						    + "('83', 'The Da Vinci Code', 14.25, 155), "
+						    + "('84', 'Gone with the Wind', 17.95, 200), "
+						    + "('85', 'The Hitchhikers Guide to the Galaxy', 10.50, 120), "
+						    + "('86', 'Inception', 9.99, 160), "
+						    + "('87', 'The Shawshank Redemption', 12.75, 180), "
+						    + "('88', 'The Godfather', 14.99, 175), "
+						    + "('89', 'Pulp Fiction', 11.25, 150), "
+						    + "('90', 'Fight Club', 13.50, 140), "
+						    + "('91', 'Forrest Gump', 16.99, 190), "
+						    + "('92', 'The Matrix', 9.50, 135), "
+						    + "('93', 'Titanic', 18.75, 195), "
+						    + "('94', 'The Silence of the Lambs', 15.25, 130), "
+						    + "('95', 'The Dark Knight', 19.50, 165), "
+						    + "('96', 'Schindlers List', 14.25, 185), "
+						    + "('97', 'Gladiator', 12.99, 170), "
+						    + "('98', 'The Lord of the Rings: The Return of the King', 21.99, 210), "
+						    + "('99', 'Goodfellas', 17.25, 155), "
+						    + "('100', 'The Lion King', 11.50, 95), "
+						    + "('101', 'The Green Mile', 16.25, 195), "
+						    + "('102', 'Inglourious Basterds', 14.99, 160), "
+						    + "('103', 'The Departed', 13.75, 175), "
+						    + "('104', 'Saving Private Ryan', 15.50, 200), "
+						    + "('105', 'The Prestige', 11.99, 145), "
+						    + "('106', 'The Shawshank Redemption', 12.75, 180), "
+						    + "('107', 'The Godfather: Part II', 15.99, 180), "
+						    + "('108', 'The Dark Knight Rises', 18.50, 170), "
+						    + "('109', 'Interstellar', 17.75, 210), "
+						    + "('110', 'The Departed', 13.75, 175)");){
+
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -285,6 +306,21 @@ public class DBManager {
 			e.printStackTrace();
 		}
 			return listaPeliculas;
+		}
+		
+		
+		public static void limpiarBd() {
+			try(Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()){
+				
+				stmt.executeUpdate("DELETE FROM Libro");
+				stmt.executeUpdate("DELETE FROM Juego");
+				stmt.executeUpdate("DELETE FROM Pelicula");
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		
