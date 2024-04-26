@@ -5,19 +5,27 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import db.DBManager;
+
 public class VentanaIniciarSesion extends JFrame{
 	
+
+	
  public VentanaIniciarSesion() {
+ 
 	
 			
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,7 +38,7 @@ public class VentanaIniciarSesion extends JFrame{
 	        setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
 			
 	
-
+	        VentanaPrincipal ventana = new VentanaPrincipal();
 			JPanel panelIniciarSesion  = new JPanel();
 			panelIniciarSesion.setBackground(Color.darkGray);
 		
@@ -43,8 +51,8 @@ public class VentanaIniciarSesion extends JFrame{
 	
 			JButton bInicioSecion = new JButton("Iniciar sesión");
 		
-			JTextField tfUsuario = new JTextField(20);
-			JPasswordField passContraseña = new JPasswordField(20);
+			JTextField txtUsuario = new JTextField(20);
+			JTextField txtContraseña = new JTextField(20);
 
 			JLabel lIniciarSesion = new JLabel("Iniciar sesion");
 			Font fuente = new Font("Arial",Font.BOLD,25);
@@ -64,27 +72,34 @@ public class VentanaIniciarSesion extends JFrame{
 			add(panelBotones,BorderLayout.SOUTH);
 		
 			pUsuario.add(lUsurario);
-			pUsuario.add(tfUsuario);
+			pUsuario.add(txtUsuario);
 			pContraseña.add(lContraseña);
-			pContraseña.add(passContraseña);
+			pContraseña.add(txtContraseña);
 			panelBotones.add(bInicioSecion);
 			pack();
 			setVisible(true);
 			
+			bInicioSecion.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					if(DBManager.existeUsuarioLogin(txtUsuario.getText(),txtContraseña.getText())){
+						JOptionPane.showMessageDialog(null, "Ha inciciado sesion correctamente","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
+						ventana.botonIniciarSesion.setEnabled(false);
+						
+					//main.u = 
+					}
+					
+					
+				}
+			});
+			
 		
 }
 
-            public static void main(String[] args) {
-	        SwingUtilities.invokeLater(new Runnable() {
-		
-		      @Override
-		     public void run() {
-		   	new VentanaIniciarSesion();
-			
-		}
-	});
-}
-	
+         
 	
 
 }

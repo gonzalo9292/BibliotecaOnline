@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +27,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import db.DBManager;
+import domain.Usuario;
+
 
 
 public class VentanaRegistrarse extends JFrame{
@@ -36,6 +41,10 @@ public class VentanaRegistrarse extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private List<Usuario> listaUsuarios = new ArrayList<>();
+	
+	
 
 	//Color del panel
 	
@@ -193,8 +202,16 @@ public class VentanaRegistrarse extends JFrame{
 					// TODO Auto-generated method stub
 					if(!pol.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Debes aceptar los terminos antes de registrarte", "Cuidado!", JOptionPane.WARNING_MESSAGE);
+					}else if(DBManager.existeUsuarioLogin(txtUsuario.getText(), txtContraseña.getText())) {
+						JOptionPane.showMessageDialog(null, "Este usuario ya esta registrado", "Cuidado!", JOptionPane.WARNING_MESSAGE);
+					}else {
+						Usuario u = new Usuario(txtDNI.getText(),txtNombre.getText(),txtApellido.getText(),txtUsuario.getText(),txtContraseña.getText());
+						listaUsuarios.add(u);
+						DBManager.insertarUsuario(u);
+						JOptionPane.showMessageDialog(null, "Tu registro se ha realizado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
+				
 				}
 			});
 	
@@ -202,16 +219,7 @@ public class VentanaRegistrarse extends JFrame{
 }
 	
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new VentanaRegistrarse();
-				
-			}
-		});
-	}
+
 	
 	
 	}

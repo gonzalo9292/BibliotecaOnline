@@ -7,9 +7,6 @@ public class Producto {
 	
 	
 
-	
-	
-
 
 
 	public Producto(String id, String titulo, double precio) {
@@ -19,6 +16,10 @@ public class Producto {
 		this.precio = precio;
 	}
 
+	
+	public Producto() {
+		
+	}
 
 
 

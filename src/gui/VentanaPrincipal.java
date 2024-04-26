@@ -16,6 +16,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -30,6 +33,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
+import domain.Producto;
+
 
 
 public class VentanaPrincipal extends JFrame{
@@ -38,6 +43,8 @@ public class VentanaPrincipal extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public JButton botonIniciarSesion = new JButton("IniciarSesion");
+	
 	
 	 public VentanaPrincipal() {
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -85,7 +92,7 @@ public class VentanaPrincipal extends JFrame{
 	        botonAlquilar.setPreferredSize(new Dimension(200,30));
 	        JButton botonDevolver = new JButton("Devolver Productos");
 	        botonDevolver.setPreferredSize(new Dimension(200,30));
-	        JButton botonIniciarSesion = new JButton("IniciarSesion");
+	       
 			botonIniciarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			botonIniciarSesion.setIcon(new ImageIcon("resorces/images/iconos/usuario.png"));
 		    botonIniciarSesion.setPreferredSize(new Dimension(150,25));
@@ -212,14 +219,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new VentanaPrincipal();
-				
-			}
-		});
+	
 	}
 
 	

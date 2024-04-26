@@ -45,7 +45,6 @@ public class DBManager {
 						+ "    	nombre VARCHAR(255),\n"
 						+ "    	apellidos VARCHAR(255),\n"
 						+ "    	dni VARCHAR(20),\n"
-						+ "    	saldo DOUBLE,\n"
 						+ "    	contrasena VARCHAR(255),\n"
 						+ "    	nombre_usuario VARCHAR(50) PRIMARY KEY ); ");
 			} catch (SQLException e) {
@@ -230,6 +229,44 @@ public class DBManager {
 			}
 		}
 		
+		public static void insertarUsuario(Usuario u) {
+		 {
+				//Añadir un existe usuario
+				String sql = "INSERT INTO Usuario (nombre, apellidos, dni,  contrasena, nombre_usuario) VALUES (?, ?, ?, ?, ?);";
+				try (Connection conn = obtenerConexion();
+						PreparedStatement pstmt = conn.prepareStatement(sql)){
+					pstmt.setString(1, u.getNombre());
+					pstmt.setString(2, u.getApellidos());
+					pstmt.setString(3, u.getDni());
+					pstmt.setString(4, u.getContraseña());
+					pstmt.setString(5, u.getNombreUsuario());
+					pstmt.executeUpdate();
+					System.out.println("Registro exitoso");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				
+		
+		}
+				}
+		 }
+		
+		
+		public static boolean existeUsuarioLogin(String nombre_usuario, String contraseña) {
+			String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ? AND contrasena = ?";
+			try (Connection conn = obtenerConexion();
+					PreparedStatement pstmt = conn.prepareStatement(sql)){
+				pstmt.setString(1, nombre_usuario);
+				pstmt.setString(2, contraseña);
+				ResultSet rs = pstmt.executeQuery();
+				return rs.next();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		
+		
 		public static List<Libro> obtenerLibrosBD(){
 			List<Libro> listaLibros = new ArrayList<>();
 			try(Connection conn = obtenerConexion();
@@ -307,6 +344,31 @@ public class DBManager {
 		}
 			return listaPeliculas;
 		}
+		
+	/*	public static 	Usuario obtenerUsuario(String usuario,String Contraseña){
+			
+			try(Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement())
+			
+			{ ResultSet rs = stmt.executeQuery("SELECT * FROM Usruario");
+				while(rs.next()) {
+				Pelicula pelicula = new Pelicula(null, null, 0.0, 0);
+				//Usuario
+				pelicula.setId(rs.getString("id"));
+			    pelicula.setTitulo(rs.getString("titulo"));
+				pelicula.setPrecio(rs.getDouble("precio"));
+				pelicula.setDuracion(rs.getInt("duracion"));
+			
+				//Añadir a la lista el usuario
+				listaPeliculas.add(pelicula);
+				}
+				
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+			return listaPeliculas;
+		} */
 		
 		
 		public static void limpiarBd() {

@@ -1,25 +1,33 @@
 package domain;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Usuario {
 	
 	private String dni;
 	private String nombre;
 	private String apellidos;
-	private double saldo;
 	private String nombreUsuario;
 	private String contraseña;
 	
+	private Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
+	
 	
 
 
-	public Usuario(String dni, String nombre, String apellidos, double saldo, String nombreUsuario, String contraseña) {
+	public Usuario(String dni, String nombre, String apellidos,  String nombreUsuario, String contraseña) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		this.saldo = saldo;
+
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
+	}
+	public Usuario() {
+		
 	}
 
 
@@ -65,15 +73,6 @@ public class Usuario {
 	
 
 
-	public double getSaldo() {
-		return saldo;
-	}
-
-
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-	}
-
 
 	public String getContraseña() {
 		return contraseña;
@@ -83,11 +82,21 @@ public class Usuario {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
+	
+	
 
 
+	public Map<String, List<Producto>> getMapaProductosUsuarios() {
+		return mapaProductosUsuarios;
+	}
+	public void setMapaProductosUsuarios(Map<String, List<Producto>> mapaProductosUsuarios) {
+		this.mapaProductosUsuarios = mapaProductosUsuarios;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", saldo=" + saldo
+		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos 
 				+ ", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña + "]";
 	}
 
