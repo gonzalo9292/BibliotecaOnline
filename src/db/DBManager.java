@@ -596,13 +596,7 @@ public class DBManager {
 						}
 				 }
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
+		  
 			public static void eliminarLibro(String id) {
 				String sql = "DELETE FROM Libro WHERE id = ?;";
 				try (Connection conn = obtenerConexion();

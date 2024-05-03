@@ -236,6 +236,8 @@ public class AlquilarProductos extends JFrame{
 									Usuario usuarioActual = ventana.usuario;
 									if(usuarioActual != null) {
 										ventana.agregarProductosAMapa(ventana.mapaProductosUsuarios, p, usuarioActual.getNombreUsuario() );
+										String idLibro = (String) tablaLibro.getValueAt(filaSeleccionada,0);
+										DBManager.eliminarLibro(idLibro);
 									}
 									modeloLibro.removeRow(filaSeleccionada);
 									panelPrincipal.revalidate();
