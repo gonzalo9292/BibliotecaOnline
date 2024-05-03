@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class Usuario {
 	
+	
 	private String dni;
 	private String nombre;
 	private String apellidos;
 	private String nombreUsuario;
 	private String contraseña;
-	
-	private Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
+
 	
 	
 
@@ -70,7 +70,6 @@ public class Usuario {
 		this.nombreUsuario = nombreUsuario;
 	}
 	
-	
 
 
 
@@ -84,14 +83,6 @@ public class Usuario {
 	}
 	
 	
-
-
-	public Map<String, List<Producto>> getMapaProductosUsuarios() {
-		return mapaProductosUsuarios;
-	}
-	public void setMapaProductosUsuarios(Map<String, List<Producto>> mapaProductosUsuarios) {
-		this.mapaProductosUsuarios = mapaProductosUsuarios;
-	}
 	
 	
 	@Override

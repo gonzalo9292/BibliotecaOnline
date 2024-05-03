@@ -38,6 +38,8 @@ import db.DBManager;
 import domain.Juego;
 import domain.Libro;
 import domain.Pelicula;
+import domain.Producto;
+import domain.Usuario;
 
 public class AlquilarProductos extends JFrame{
 	
@@ -56,6 +58,9 @@ public class AlquilarProductos extends JFrame{
 	                (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	        
 	        setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
+	        
+	        VentanaPrincipal ventana = new VentanaPrincipal();
+	        
 		
 			JPanel panelPrincipal = new JPanel(new BorderLayout());
 			add(panelPrincipal);
@@ -189,6 +194,7 @@ public class AlquilarProductos extends JFrame{
 						panelPrincipal.add(scrollPanelLibro,BorderLayout.CENTER);
 						panelPrincipal.revalidate();
 				        panelPrincipal.repaint();
+				        
 				        masmenos.addActionListener(new ActionListener() {
 							
 							@Override
@@ -212,6 +218,33 @@ public class AlquilarProductos extends JFrame{
 									panelPrincipal.add(scrollPanelLibro,BorderLayout.CENTER);
 									panelPrincipal.revalidate();
 							        panelPrincipal.repaint();
+							}
+						});
+				        
+				        alquilar.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								
+								int filaSeleccionada = tablaLibro.getSelectedRow();
+								if(filaSeleccionada != -1) {
+									Producto p = new Producto();
+									p.setId((String) tablaLibro.getValueAt(filaSeleccionada,0));  
+									p.setTitulo((String) tablaLibro.getValueAt(filaSeleccionada,1));
+									p.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
+									Usuario usuarioActual = ventana.usuario;
+									if(usuarioActual != null) {
+										ventana.agregarProductosAMapa(ventana.mapaProductosUsuarios, p, usuarioActual.getNombreUsuario() );
+									}
+									modeloLibro.removeRow(filaSeleccionada);
+									panelPrincipal.revalidate();
+									panelPrincipal.repaint();
+									
+								}else {
+									
+								}
+								
 							}
 						});
 				       
@@ -261,6 +294,8 @@ public class AlquilarProductos extends JFrame{
 						
 					}
 				});
+		        
+		    
 		        
 		        
 		        

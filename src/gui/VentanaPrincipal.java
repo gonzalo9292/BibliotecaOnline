@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 import domain.Producto;
+import domain.Usuario;
 
 
 
@@ -44,6 +46,8 @@ public class VentanaPrincipal extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton botonIniciarSesion = new JButton("IniciarSesion");
+	public  Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
+	public Usuario usuario = new Usuario();
 	
 	
 	 public VentanaPrincipal() {
@@ -194,7 +198,13 @@ public class VentanaPrincipal extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					new AlquilarProductos();
+					
+					if(botonIniciarSesion.isEnabled()) {
+						JOptionPane.showMessageDialog(null, "Debes iniciar Sesion Antes", "Atencion!", JOptionPane.WARNING_MESSAGE);
+					}else {
+						new AlquilarProductos();
+					}
+					
 				}
 			});
 	        
@@ -213,13 +223,27 @@ public class VentanaPrincipal extends JFrame{
 	 public void mostrarDescripcion () {
 		 
 	 }
+	 
+	 public void agregarProductosAMapa( Map<String,List<Producto>> mapaUsuarioProductos,Producto p,String nombre_usuario) {
+		 
+		 mapaUsuarioProductos.putIfAbsent(nombre_usuario, new ArrayList<>());
+		 mapaUsuarioProductos.get(nombre_usuario).add(p);
+	 }
 
 	
 	
 	
 	
 	public static void main(String[] args) {
-	
+    SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				new VentanaPrincipal();
+				
+				
+			}
+		});
 	}
 
 	

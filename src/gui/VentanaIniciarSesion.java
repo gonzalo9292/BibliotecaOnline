@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 import db.DBManager;
 
 public class VentanaIniciarSesion extends JFrame{
+
 	
 
 	
@@ -88,8 +89,12 @@ public class VentanaIniciarSesion extends JFrame{
 					if(DBManager.existeUsuarioLogin(txtUsuario.getText(),txtContraseña.getText())){
 						JOptionPane.showMessageDialog(null, "Ha inciciado sesion correctamente","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
 						ventana.botonIniciarSesion.setEnabled(false);
+						// Si inicia Sesion se guarda en usuario el usuario que ha iniciado sesion
+						ventana.usuario = DBManager.obtenerUsuario(txtUsuario.getText(), txtContraseña.getText());
 						
-					//main.u = 
+						
+						
+					
 					}
 					
 					

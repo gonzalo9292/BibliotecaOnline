@@ -31,9 +31,22 @@ public class DBCreator {
 		System.out.println("Creando tabla Juego");
 		DBManager.crearTablaJuego();
 		
+		DBManager.crearTablaJuegoCopia();
+		System.out.println("Copia de la tabla juego creada");
+		DBManager.crearTablaLibroCopia();
+		System.out.println("Copia de la tabla libro creada");
+		DBManager.crearTablaPeliculaCopia();
+		System.out.println("Copia de la tabla pelicula creada");
+		
 		DBManager.añadirLibrosDisponibles();
 		DBManager.añadirJuegosDisponibles();
 		DBManager.añadirPeliculasDisponibles();
+		
+		
+
+		DBManager.añadirLibrosCopiaDisponibles();
+		DBManager.añadirJuegosCopiaDisponibles();
+		DBManager.añadirPeliculasCopiaDisponibles();
 		
 
 	
@@ -59,5 +72,6 @@ public class DBCreator {
 		
 		System.out.println("Cerrando conexion...");
 	}
+	
 
 }
