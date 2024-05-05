@@ -12,11 +12,18 @@ public class Usuario {
 	private String apellidos;
 	private String nombreUsuario;
 	private String contraseña;
+	private List<Producto> listaProductos ;
 
 	
 	
 
 
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
+	}
 	public Usuario(String dni, String nombre, String apellidos,  String nombreUsuario, String contraseña) {
 		super();
 		this.dni = dni;

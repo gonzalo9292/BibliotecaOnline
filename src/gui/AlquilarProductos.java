@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
+import java.awt.desktop.PrintFilesEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -47,8 +48,16 @@ public class AlquilarProductos extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Usuario user;
 
-	public AlquilarProductos() {
+	
+	
+
+    
+    
+	
+
+	public AlquilarProductos(Usuario user) {
 		
 		   setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        setSize(700, 500);
@@ -58,9 +67,8 @@ public class AlquilarProductos extends JFrame{
 	                (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	        
 	        setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
-	        
-	        VentanaPrincipal ventana = new VentanaPrincipal();
-	        
+
+	        this.user = user;
 		
 			JPanel panelPrincipal = new JPanel(new BorderLayout());
 			add(panelPrincipal);
@@ -222,6 +230,8 @@ public class AlquilarProductos extends JFrame{
 						});
 				        
 				        alquilar.addActionListener(new ActionListener() {
+				        	
+				        		
 							
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -233,12 +243,22 @@ public class AlquilarProductos extends JFrame{
 									p.setId((String) tablaLibro.getValueAt(filaSeleccionada,0));  
 									p.setTitulo((String) tablaLibro.getValueAt(filaSeleccionada,1));
 									p.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
-									Usuario usuarioActual = ventana.usuario;
-									if(usuarioActual != null) {
-										ventana.agregarProductosAMapa(ventana.mapaProductosUsuarios, p, usuarioActual.getNombreUsuario() );
+								
+									if(user!= null) {
+								
+										
+									
 										String idLibro = (String) tablaLibro.getValueAt(filaSeleccionada,0);
 										DBManager.eliminarLibro(idLibro);
+										System.out.println(user.getNombreUsuario());
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										
+									
+										      
+										
 									}
+								
+								
 									modeloLibro.removeRow(filaSeleccionada);
 									panelPrincipal.revalidate();
 									panelPrincipal.repaint();
@@ -417,16 +437,7 @@ public class AlquilarProductos extends JFrame{
  
   
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new AlquilarProductos();
-				
-			}
-		});
-	}
+
 
 
 

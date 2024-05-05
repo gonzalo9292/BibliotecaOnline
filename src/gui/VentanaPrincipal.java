@@ -47,7 +47,8 @@ public class VentanaPrincipal extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public JButton botonIniciarSesion = new JButton("IniciarSesion");
 	public  Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
-	public Usuario usuario = new Usuario();
+	public Usuario user = new Usuario();
+	
 	
 	
 	 public VentanaPrincipal() {
@@ -146,7 +147,7 @@ public class VentanaPrincipal extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new VentanaIniciarSesion();
+					new VentanaIniciarSesion(user);
 					
 				}
 			});
@@ -202,7 +203,8 @@ public class VentanaPrincipal extends JFrame{
 					if(botonIniciarSesion.isEnabled()) {
 						JOptionPane.showMessageDialog(null, "Debes iniciar Sesion Antes", "Atencion!", JOptionPane.WARNING_MESSAGE);
 					}else {
-						new AlquilarProductos();
+						new AlquilarProductos(user);
+						
 					}
 					
 				}
@@ -234,17 +236,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	
 	
-	public static void main(String[] args) {
-    SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new VentanaPrincipal();
-				
-				
-			}
-		});
-	}
+
 
 	
 	

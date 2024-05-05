@@ -18,7 +18,8 @@ public class DBCreator {
 		System.out.println("Añadiendo Usuarios de ejemplo");
 		db.añadirUsuariosEjemplo();
 //		*/
-		
+		System.out.println("Creando tabla Alquiler");
+		DBManager.crearTablaAlquiler();
 	
 		System.out.println("Creando tabla Libro");
 		DBManager.crearTablaLibro();

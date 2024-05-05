@@ -19,13 +19,23 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import db.DBManager;
+import domain.Usuario;
 
 public class VentanaIniciarSesion extends JFrame{
 
 	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private VentanaPrincipal v = new VentanaPrincipal();
+private Usuario user;
 
-	
- public VentanaIniciarSesion() {
+ 
+
+
+
+public VentanaIniciarSesion(Usuario user) {
  
 	
 			
@@ -38,8 +48,10 @@ public class VentanaIniciarSesion extends JFrame{
 			
 	        setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
 			
+	        this.user = user;
 	
-	        VentanaPrincipal ventana = new VentanaPrincipal();
+	   
+	        
 			JPanel panelIniciarSesion  = new JPanel();
 			panelIniciarSesion.setBackground(Color.darkGray);
 		
@@ -88,9 +100,13 @@ public class VentanaIniciarSesion extends JFrame{
 					
 					if(DBManager.existeUsuarioLogin(txtUsuario.getText(),txtContraseña.getText())){
 						JOptionPane.showMessageDialog(null, "Ha inciciado sesion correctamente","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
-						ventana.botonIniciarSesion.setEnabled(false);
+						v.botonIniciarSesion.setEnabled(false);
 						// Si inicia Sesion se guarda en usuario el usuario que ha iniciado sesion
-						ventana.usuario = DBManager.obtenerUsuario(txtUsuario.getText(), txtContraseña.getText());
+						Usuario user =(DBManager.obtenerUsuario(txtUsuario.getText(), txtContraseña.getText()));
+						AlquilarProductos alquilarProductos = new AlquilarProductos(user);
+						 setVisible(false);
+						  System.out.println(String.format("%s",user.getNombreUsuario()));
+					
 						
 						
 						
@@ -103,6 +119,15 @@ public class VentanaIniciarSesion extends JFrame{
 			
 		
 }
+ 
+
+
+
+
+
+
+
+
 
          
 	

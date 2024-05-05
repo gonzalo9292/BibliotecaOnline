@@ -17,7 +17,16 @@ public class main {
 	public main() {
 		//listaUsuarios = DBManager.obtenerUsuarios();
 		new VentanaPrincipal();
+		listaUsuarios = DBManager.obtenerTodosLosUsuarios();
+	    imprimirLista(listaUsuarios);
 		
+		
+	}
+	
+	public void imprimirLista(List<Usuario> lista) {
+		for(Usuario u : lista) {
+			System.out.println(u.getNombreUsuario());
+		}
 	}
 	
    public static void main(String[] args) {
@@ -27,6 +36,7 @@ public class main {
 			public void run() {
 				new main();
 				
+			
 			}
 		});
 				}

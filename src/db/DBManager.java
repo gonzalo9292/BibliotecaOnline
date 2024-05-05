@@ -12,6 +12,7 @@ import java.util.List;
 import domain.Juego;
 import domain.Libro;
 import domain.Pelicula;
+import domain.Producto;
 import domain.Usuario;
 
 public class DBManager {
@@ -91,6 +92,19 @@ public class DBManager {
 			}
 		}
 		
+	    
+	    public static void crearTablaAlquiler() {
+			try(Connection conn = obtenerConexion();
+					Statement stmt = conn.createStatement()) {
+				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Alquiler (\n"
+						+ "    	nombre_usuario VARCHAR(30),\n"
+						+ "     id VARCHAR(30)  PRIMARY KEY,\n"
+						+ "     titulo VARCHAR(30),\n"
+						+ "    	precio DOUBLE ); ");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}	
+		}
 		 
 	 
 		public static void crearTablaJuegoCopia() {
@@ -429,7 +443,7 @@ public class DBManager {
 					pstmt.setString(4, u.getContraseña());
 					pstmt.setString(5, u.getNombreUsuario());
 					pstmt.executeUpdate();
-					System.out.println("Registro exitoso");
+					System.out.println("El usuario se ha insertado con exito");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				
@@ -438,6 +452,26 @@ public class DBManager {
 				}
 		 }
 		
+		public static void RegistrarAlquiler(String nombre_usuario, Producto p) {
+		    if (nombre_usuario != null) {
+		        // Realizar el registro del alquiler con el usuario
+		        String sql = "INSERT INTO Alquiler (nombre_usuario, id, titulo, precio) VALUES (?, ?, ?, ?);";
+		        try (Connection conn = obtenerConexion();
+		             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		            pstmt.setString(1, nombre_usuario);
+		            pstmt.setString(2, p.getId());
+		            pstmt.setString(3, p.getTitulo());
+		            pstmt.setDouble(4, p.getPrecio());
+		            pstmt.executeUpdate();
+		            System.out.println("El alquiler se ha registrado con éxito");
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    } else {
+		        System.out.println("Error: El usuario es null. No se puede registrar el alquiler.");
+		    }
+		}
+
 		
 		
 		
@@ -454,6 +488,28 @@ public class DBManager {
 				return false;
 			}
 		}
+		
+		 public static List<Usuario> obtenerTodosLosUsuarios(){
+				List<Usuario> lstUsuarios = new ArrayList<>();
+				try(Connection conn = obtenerConexion();
+					Statement stmt = conn.createStatement()){
+					ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario");
+					while(rs.next()) {
+						Usuario user = new Usuario();
+						//Usuario
+						user.setNombre(rs.getString("nombre"));
+						user.setApellidos(rs.getString("apellidos"));
+						user.setDni(rs.getString("dni"));;
+						user.setNombreUsuario(rs.getString("nombre_usuario"));
+						user.setContraseña(rs.getString("contrasena"));
+				
+						//Añadir a la lista el usuario
+						lstUsuarios.add(user);
+					}}catch(SQLException eo) {
+						eo.printStackTrace();
+					}
+				return lstUsuarios;
+				}
 		
 		
 		
@@ -536,7 +592,7 @@ public class DBManager {
 		}
 		
 		   public static Usuario obtenerUsuario(String nombreUsuario, String contraseña) {
-		        Usuario usuario = null;
+		        Usuario usuario = new Usuario();
 		        try (Connection conn = obtenerConexion();
 		             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuario WHERE nombre_usuario = ? AND contrasena = ?")) {
 		            stmt.setString(1, nombreUsuario);
@@ -637,6 +693,10 @@ public class DBManager {
 				stmt.executeUpdate("DELETE FROM Juego");
 				stmt.executeUpdate("DELETE FROM Pelicula");
 				stmt.executeUpdate("DELETE FROM Usuario");
+				stmt.executeUpdate("DELETE FROM LibroCopia");
+				stmt.executeUpdate("DELETE FROM JuegoCopia");
+				stmt.executeUpdate("DELETE FROM PeliculaCopia");
+				stmt.executeUpdate("DELETE FROM Alquiler");
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
