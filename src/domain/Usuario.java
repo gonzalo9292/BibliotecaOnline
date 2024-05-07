@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public class Usuario {
 	private String apellidos;
 	private String nombreUsuario;
 	private String contraseña;
-	private List<Producto> listaProductos ;
+	private List<Producto> listaProductos=  new ArrayList<>();;
 
 	
 	
@@ -21,8 +22,8 @@ public class Usuario {
 	public List<Producto> getListaProductos() {
 		return listaProductos;
 	}
-	public void setListaProductos(List<Producto> listaProductos) {
-		this.listaProductos = listaProductos;
+	public void setListaProductos(Producto p) {
+		this.listaProductos.add(p);
 	}
 	public Usuario(String dni, String nombre, String apellidos,  String nombreUsuario, String contraseña) {
 		super();
@@ -32,6 +33,7 @@ public class Usuario {
 
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
+		
 	}
 	public Usuario() {
 		

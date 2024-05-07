@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import domain.Juego;
 import domain.Libro;
@@ -611,6 +612,29 @@ public class DBManager {
 		        }
 		        return usuario;
 		    } 
+		   
+		 /*  public static Map<String,List<Producto>> actualizarMapaUsuario(Map<String,List<Producto>> mapa) {
+			   	List<Producto> listaProductos = new ArrayList<Producto>();
+		        Producto producto = new Producto();
+		        try (Connection conn = obtenerConexion();
+		             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Alquiler ")) {
+		        
+		         
+		            ResultSet rs = stmt.executeQuery();
+		            if (rs.next()) {
+		                producto= new Producto();
+		                producto.setId(rs.getString("id"));
+		                producto.setTitulo(rs.getString("titulo"));
+		                producto.setPrecio(rs.getDouble("precio"));
+		                
+		                listaProductos.add(producto);
+		               
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    //    return listaProductos;
+		    } */
 		   
 		   public static void insertarJuego(Juego j) {
 				 {

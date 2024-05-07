@@ -69,6 +69,7 @@ public class AlquilarProductos extends JFrame{
 	        setIconImage((new ImageIcon("resorces/images/iconos/icono.png").getImage()));
 
 	        this.user = user;
+	        System.out.println(user.getListaProductos());
 		
 			JPanel panelPrincipal = new JPanel(new BorderLayout());
 			add(panelPrincipal);
@@ -243,11 +244,17 @@ public class AlquilarProductos extends JFrame{
 									p.setId((String) tablaLibro.getValueAt(filaSeleccionada,0));  
 									p.setTitulo((String) tablaLibro.getValueAt(filaSeleccionada,1));
 									p.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
+									user.setListaProductos(p);
+									
+									for(Producto p2 : user.getListaProductos()) {
+										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
+									}
+									
 								
 									if(user!= null) {
 								
 										
-									
+										
 										String idLibro = (String) tablaLibro.getValueAt(filaSeleccionada,0);
 										DBManager.eliminarLibro(idLibro);
 										System.out.println(user.getNombreUsuario());
@@ -257,6 +264,7 @@ public class AlquilarProductos extends JFrame{
 										      
 										
 									}
+									
 								
 								
 									modeloLibro.removeRow(filaSeleccionada);

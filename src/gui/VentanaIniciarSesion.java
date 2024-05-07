@@ -106,6 +106,7 @@ public VentanaIniciarSesion(Usuario user) {
 						AlquilarProductos alquilarProductos = new AlquilarProductos(user);
 						 setVisible(false);
 						  System.out.println(String.format("%s",user.getNombreUsuario()));
+						  
 					
 						
 						
