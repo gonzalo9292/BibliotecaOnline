@@ -25,8 +25,10 @@ public class main {
 		listaUsuarios = DBManager.obtenerTodosLosUsuarios();
 	    imprimirLista(listaUsuarios);
 	    for(Usuario u : listaUsuarios) {
+	    	List<Producto> listaProductosUsuario = DBManager.actualizarMapaUsuario(u.getNombreUsuario());
 	    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),u.getListaProductos());
 	    	mapaProductosUsuario.put(u.getNombreUsuario(), u.getListaProductos());
+	    	mapaProductosUsuario.get(u.getNombreUsuario()).addAll(listaProductosUsuario);
 	    }
 	    System.out.println(mapaProductosUsuario);
 	    

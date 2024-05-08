@@ -613,15 +613,15 @@ public class DBManager {
 		        return usuario;
 		    } 
 		   
-		 /*  public static Map<String,List<Producto>> actualizarMapaUsuario(Map<String,List<Producto>> mapa) {
+		   public static List<Producto> actualizarMapaUsuario(String nombre_usuario) {
 			   	List<Producto> listaProductos = new ArrayList<Producto>();
 		        Producto producto = new Producto();
 		        try (Connection conn = obtenerConexion();
-		             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Alquiler ")) {
-		        
+		             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Alquiler WHERE nombre_usuario = ?")) {
+		        	   stmt.setString(1, nombre_usuario);
 		         
 		            ResultSet rs = stmt.executeQuery();
-		            if (rs.next()) {
+		            while (rs.next()) {
 		                producto= new Producto();
 		                producto.setId(rs.getString("id"));
 		                producto.setTitulo(rs.getString("titulo"));
@@ -634,7 +634,8 @@ public class DBManager {
 		            e.printStackTrace();
 		        }
 		    //    return listaProductos;
-		    } */
+				return listaProductos;
+		    } 
 		   
 		   public static void insertarJuego(Juego j) {
 				 {
