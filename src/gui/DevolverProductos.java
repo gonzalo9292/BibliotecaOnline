@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +26,11 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import db.DBManager;
+import domain.Libro;
+import domain.Pelicula;
 import domain.Producto;
+import domain.Usuario;
 
 public class DevolverProductos extends JFrame{
 
@@ -32,9 +39,10 @@ public class DevolverProductos extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Map<String,List<Producto>> mapaProductosUsuario;
+	private Usuario user;
 	
 	
-public DevolverProductos() {
+public DevolverProductos(Usuario user) {
 	
 			 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		     setSize(700, 500);
@@ -53,13 +61,13 @@ public DevolverProductos() {
 			 JMenuBar menuBar = new JMenuBar();
 			 menuBar.setLayout(new FlowLayout(FlowLayout.CENTER));
 			JMenu menu = new JMenu("Productos a tu disposicion:");
-			JMenuItem libros = new JMenuItem("Libros");
+			JMenuItem productos= new JMenuItem("Productos");
 			JMenuItem juegos = new JMenuItem("Juegos");
 			JMenuItem peliculas = new JMenuItem("Peliculas");
 			
-			menu.add(libros);
-			menu.add(juegos);
-			menu.add(peliculas);
+			menu.add(productos);
+			//menu.add(juegos);
+			//menu.add(peliculas);
 			
 			 menuBar.add(menu);
 			 menuBar.setBackground(Color.white);
@@ -79,65 +87,69 @@ public DevolverProductos() {
 			panelNorte.add(menuBar);
 			panelNorte.add(label);
 			panelNorte.add(alquilar);
-			DefaultTableModel modeloTabla = new DefaultTableModel();
+			DefaultTableModel modeloProducto = new DefaultTableModel();
 		
 		        // Añadir columnas al modelo de tabla
-		        modeloTabla.addColumn("ID");
-		        modeloTabla.addColumn("Nombre");
-		        modeloTabla.addColumn("Precio");
+		        modeloProducto.addColumn("ID");
+		        modeloProducto.addColumn("Nombre");
+		        modeloProducto.addColumn("Precio");
 		
 		        // Añadir filas al modelo de tabla
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
-		        modeloTabla.addRow(new Object[]{1, "Libro", 20.0});
-		        modeloTabla.addRow(new Object[]{2, "Película", 15.5});
-		        modeloTabla.addRow(new Object[]{3, "Juego", 30.75});
+		      
 		
 		        // Crear tabla con el modelo de datos
-		        JTable tabla = new JTable(modeloTabla);
+		        JTable tablaProducto = new JTable(modeloProducto);
 		
 		        // Crear contenedor y añadir la tabla
-		        JScrollPane scrollPane = new JScrollPane(tabla);
+		        JScrollPane scrollPane = new JScrollPane(tablaProducto);
 		       
 		        
 		        panelPrincipal.add(scrollPane,BorderLayout.CENTER);
+		        
+		        
+		        
+		        productos.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+						panelPrincipal.removeAll();
+						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
+						// TODO Auto-generated method stub
+						Map<String,List<Producto>> mapaProductos = main.main.mapaProductosUsuario;
+						System.out.println(mapaProductos);
+					        // Actualiza la tabla con la nueva lista de libros.
+					    actualizarTablaProducto(mapaProductos,user.getNombreUsuario(),modeloProducto);
+						panelPrincipal.add(scrollPane,BorderLayout.CENTER);
+						panelPrincipal.revalidate();
+				        panelPrincipal.repaint();
+					}
+				});
 		
 		
 			setVisible(true);
-		}
-		
-		public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
 			
-			@Override
-			public void run() {
-				new DevolverProductos();
-				
-			}
-		});
+			
+			
 		}
+
+
+
+
+public void actualizarTablaProducto(Map<String,List<Producto>> mapa, String nombre_usuario ,DefaultTableModel modeloProducto) {
+    modeloProducto.setRowCount(0);
+   
+    	
+    		 List<Producto> listaProductosUsuario = mapa.get(nombre_usuario);
+    		 for(Producto p:listaProductosUsuario) {
+    			 modeloProducto.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), });
+    		 }
+    	
+    	 
+    	
+    	
+    }
 
        
        

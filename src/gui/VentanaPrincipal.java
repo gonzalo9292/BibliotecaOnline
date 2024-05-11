@@ -45,9 +45,13 @@ public class VentanaPrincipal extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JButton botonIniciarSesion = new JButton("IniciarSesion");
+	public static JButton botonIniciarSesion = new JButton("IniciarSesion");
+	public JButton botonAlquilar = new JButton("Alquilar Productos");
+	public  JButton botonDevolver = new JButton("Devolver Productos");
 	public  Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
-	public Usuario user = new Usuario();
+	public static Usuario user = new Usuario();
+	
+	
 	
 	
 	
@@ -93,9 +97,9 @@ public class VentanaPrincipal extends JFrame{
 			botonAyuda.setLayout(new FlowLayout(FlowLayout.LEFT));
 	       
 
-	        JButton botonAlquilar = new JButton("Alquilar Productos");
+	     
 	        botonAlquilar.setPreferredSize(new Dimension(200,30));
-	        JButton botonDevolver = new JButton("Devolver Productos");
+	       
 	        botonDevolver.setPreferredSize(new Dimension(200,30));
 	       
 			botonIniciarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -215,7 +219,7 @@ public class VentanaPrincipal extends JFrame{
 			     	@Override
 					public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					new DevolverProductos();
+					new DevolverProductos(user);
 				}
 				});
 	    }

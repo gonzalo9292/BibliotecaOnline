@@ -296,6 +296,79 @@ public class AlquilarProductos extends JFrame{
 						panelPrincipal.add(scrollPanelJuego,BorderLayout.CENTER);
 						panelPrincipal.revalidate();
 				        panelPrincipal.repaint();
+				        
+				        masmenos.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Juego> listaJuegos2 = OrdenarJuegosDeMayoraMenor(listaJuegos);
+								 actualizarTablaJuegos(listaJuegos2,modeloJuego);
+									panelPrincipal.add(scrollPanelJuego,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				        
+				        menosmas.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Juego> listaJuegos2 = OrdenarJuegosDeMenoraMayor(listaJuegos);                   
+								 actualizarTablaJuegos(listaJuegos2,modeloJuego);
+									panelPrincipal.add(scrollPanelJuego,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				        	alquilar.addActionListener(new ActionListener() {
+				        	
+				        		
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								
+								int filaSeleccionada = tablaJuego.getSelectedRow();
+								if(filaSeleccionada != -1) {
+									Producto p = new Producto();
+									p.setId((String) tablaJuego.getValueAt(filaSeleccionada,0));  
+									p.setTitulo((String) tablaJuego.getValueAt(filaSeleccionada,1));
+									p.setPrecio((double) tablaJuego.getValueAt(filaSeleccionada, 2));
+									user.setListaProductos(p);
+									
+									for(Producto p2 : user.getListaProductos()) {
+										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
+									}
+									
+								
+									if(user!= null) {
+								
+										
+										
+										String idJuego = (String) tablaJuego.getValueAt(filaSeleccionada,0);
+										DBManager.eliminarJuego(idJuego);
+										System.out.println(user.getNombreUsuario());
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										
+									
+										      
+										
+									}
+									
+								
+								
+									modeloJuego.removeRow(filaSeleccionada);
+									panelPrincipal.revalidate();
+									panelPrincipal.repaint();
+									
+								}else {
+									
+								}
+								
+							}
+						});
 					}
 				});
 		        
@@ -313,17 +386,84 @@ public class AlquilarProductos extends JFrame{
 						panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
 						panelPrincipal.revalidate();
 				        panelPrincipal.repaint();
+				        
+				        masmenos.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Pelicula> listaPeliculas2 = OrdenarPeliculasDeMayoraMenor(listaPeliculas);
+								 actualizarTablaPeliculas(listaPeliculas2,modeloLibro);
+									panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				        
+				        menosmas.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								List<Pelicula> listaPeliculas2 = OrdenarPeliculasDeMenoraMayor(listaPeliculas);                   
+								 actualizarTablaPeliculas(listaPeliculas2,modeloLibro);
+									panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
+									panelPrincipal.revalidate();
+							        panelPrincipal.repaint();
+							}
+						});
+				        
+				        alquilar.addActionListener(new ActionListener() {
+				        	
+				        		
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								
+								int filaSeleccionada = tablaPelicula.getSelectedRow();
+								if(filaSeleccionada != -1) {
+									Producto p = new Producto();
+									p.setId((String) tablaPelicula.getValueAt(filaSeleccionada,0));  
+									p.setTitulo((String) tablaPelicula.getValueAt(filaSeleccionada,1));
+									p.setPrecio((double) tablaPelicula.getValueAt(filaSeleccionada, 2));
+									user.setListaProductos(p);
+									
+									for(Producto p2 : user.getListaProductos()) {
+										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
+									}
+									
+								
+									if(user!= null) {
+								
+										
+										
+										String idPelicula = (String) tablaPelicula.getValueAt(filaSeleccionada,0);
+										DBManager.eliminarPelicula(idPelicula);
+										System.out.println(user.getNombreUsuario());
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										
+									
+										      
+										
+									}
+									
+								
+								
+									modeloPelicula.removeRow(filaSeleccionada);
+									panelPrincipal.revalidate();
+									panelPrincipal.repaint();
+									
+								}else {
+									
+								}
+								
+							}
+						});
 					}
 				});
 		        
-		        masmenos.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
+		     
 		        
 		    
 		        

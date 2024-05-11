@@ -28,7 +28,7 @@ public class VentanaIniciarSesion extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-private VentanaPrincipal v = new VentanaPrincipal();
+
 private Usuario user;
 
  
@@ -97,13 +97,21 @@ public VentanaIniciarSesion(Usuario user) {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+			
 					if(DBManager.existeUsuarioLogin(txtUsuario.getText(),txtContraseña.getText())){
+						
 						JOptionPane.showMessageDialog(null, "Ha inciciado sesion correctamente","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
-						v.botonIniciarSesion.setEnabled(false);
+						
 						// Si inicia Sesion se guarda en usuario el usuario que ha iniciado sesion
-						Usuario user =(DBManager.obtenerUsuario(txtUsuario.getText(), txtContraseña.getText()));
-						AlquilarProductos alquilarProductos = new AlquilarProductos(user);
+						final Usuario user =(DBManager.obtenerUsuario(txtUsuario.getText(), txtContraseña.getText()));
+						//AlquilarProductos alquilarProductos = new AlquilarProductos(user);
+						//DevolverProductos devolverProductos = new DevolverProductos(user);
+					  VentanaPrincipal.user = user;
+					
+						
+						
+						
+						VentanaPrincipal.botonIniciarSesion.setEnabled(false);
 						 setVisible(false);
 						  System.out.println(String.format("%s",user.getNombreUsuario()));
 						  
@@ -118,6 +126,7 @@ public VentanaIniciarSesion(Usuario user) {
 				}
 			});
 			
+	
 		
 }
  
