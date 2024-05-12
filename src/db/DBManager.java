@@ -453,6 +453,22 @@ public class DBManager {
 				}
 		 }
 		
+		
+		   
+		public static void eliminarUsuario(String nombre_usuario,String contraseña) {
+			String sql = "DELETE FROM Usuario WHERE nombre_usuario = ? AND contrasena;";
+			try (Connection conn = obtenerConexion();
+					PreparedStatement pstmt = conn.prepareStatement(sql)){
+				pstmt.setString(1, nombre_usuario);
+				pstmt.setString(2, contraseña);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		public static void RegistrarAlquiler(String nombre_usuario, Producto p) {
 		    if (nombre_usuario != null) {
 		        // Realizar el registro del alquiler con el usuario
@@ -613,6 +629,75 @@ public class DBManager {
 		        return usuario;
 		    } 
 		   
+
+		   public static void añadirTrasEliminar(List<Producto> lista)  {
+			   
+			   for(Producto p : lista) {
+				   int id = Integer.parseInt(p.getId());
+				
+				   if (id >= 1 && id <= 35) {
+			            // Hacer algo si el ID está entre 1 y 35
+					   try (Connection conn = obtenerConexion();
+					             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM LibroCopia WHERE id = ?")) {
+					            stmt.setString(1,String.valueOf(id));
+					            ResultSet rs = stmt.executeQuery();
+					            if (rs.next()) {
+					                Libro l = new Libro(null, null, 0.0, null);
+					                l.setId(rs.getString("id"));
+					                l.setTitulo(rs.getString("titulo"));
+					                l.setPrecio(rs.getDouble("precio"));
+					                l.setAutor(rs.getString("autor"));
+					                insertarLibro(l);
+					                
+					            }
+					        } catch (SQLException e) {
+					            e.printStackTrace();
+					        }
+			            
+			        } else if (id >= 36 && id <= 71) {
+			            // Hacer algo si el ID está entre 1 y 35
+						   try (Connection conn = obtenerConexion();
+						             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM JuegoCopia WHERE id = ?")) {
+						            stmt.setString(1, String.valueOf(id));
+						            ResultSet rs = stmt.executeQuery();
+						            if (rs.next()) {
+						            	Juego juego = new Juego(null, null, 0.0, null);
+										//Usuario
+										juego.setId(rs.getString("id"));
+									    juego.setTitulo(rs.getString("titulo"));
+										juego.setPrecio(rs.getDouble("precio"));
+										juego.setPlataforma(rs.getString("plataforma"));
+										insertarJuego(juego);
+						            }
+						        } catch (SQLException e) {
+						            e.printStackTrace();
+						        }
+			        } else if (id >= 72 && id <= 110) {
+			            // Hacer algo si el ID está entre 72 y 110
+			        	 try (Connection conn = obtenerConexion();
+					             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PeliculaCopia WHERE id = ?")) {
+					            stmt.setString(1, String.valueOf(id));
+					            ResultSet rs = stmt.executeQuery();
+					            if (rs.next()) {
+					            	Pelicula pelicula = new Pelicula(null, null, 0.0, 0);
+									//Usuario
+									pelicula.setId(rs.getString("id"));
+								    pelicula.setTitulo(rs.getString("titulo"));
+									pelicula.setPrecio(rs.getDouble("precio"));
+									pelicula.setDuracion(rs.getInt("duracion"));
+									insertarPelicula(pelicula);
+					            }
+					        } catch (SQLException e) {
+					            e.printStackTrace();
+					        }
+			        }
+			        
+				   
+			   }
+			
+		      
+		    } 
+		   
 		   public static List<Producto> actualizarMapaUsuario(String nombre_usuario) {
 			   	List<Producto> listaProductos = new ArrayList<Producto>();
 		        Producto producto = new Producto();
@@ -636,6 +721,26 @@ public class DBManager {
 		    //    return listaProductos;
 				return listaProductos;
 		    } 
+		   
+		   public static void insertarLibro(Libro l) {
+				 {
+						//Añadir un existe usuario
+						String sql = "INSERT INTO Libro (id, titulo, precio, autor) VALUES (?, ?, ?, ?);";
+						try (Connection conn = obtenerConexion();
+								PreparedStatement pstmt = conn.prepareStatement(sql)){
+							pstmt.setString(1, l.getId());
+							pstmt.setString(2, l.getTitulo());
+							pstmt.setDouble(3, l.getPrecio());
+							pstmt.setString(4, l.getAutor());
+							pstmt.executeUpdate();
+							System.out.println("Se ha insertado con exito el libro");
+						} catch (SQLException e) {
+							e.printStackTrace();
+						
+				
+				}
+						}
+				 }
 		   
 		   public static void insertarJuego(Juego j) {
 				 {
@@ -722,6 +827,31 @@ public class DBManager {
 				stmt.executeUpdate("DELETE FROM JuegoCopia");
 				stmt.executeUpdate("DELETE FROM PeliculaCopia");
 				stmt.executeUpdate("DELETE FROM Alquiler");
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public static void ActualizarBdAlEliminarUusario() {
+			try(Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()){
+				
+				
+				
+				
+			
+				stmt.executeUpdate("DELETE FROM LibroCopia");
+				stmt.executeUpdate("DELETE FROM JuegoCopia");
+				stmt.executeUpdate("DELETE FROM PeliculaCopia");
+				System.out.println("Se han eliminado los datos de las tablas copia");
+				
+				añadirLibrosCopiaDisponibles();
+				añadirJuegosCopiaDisponibles();
+				añadirPeliculasCopiaDisponibles();
+				System.out.println("Se han rellenado las tablas copia");
+				
 			}
 			catch(SQLException e) {
 				e.printStackTrace();

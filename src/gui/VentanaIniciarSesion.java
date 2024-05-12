@@ -120,6 +120,10 @@ public VentanaIniciarSesion(Usuario user) {
 						
 						
 					
+					}else if(txtUsuario.getText().equals("Admin")) {
+						VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
+						//VentanaPrincipal.botonAlquilar.setEnabled(false);
+						//VentanaPrincipal.botonDevolver.setEnabled(false);
 					}
 					
 					

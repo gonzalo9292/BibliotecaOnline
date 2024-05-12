@@ -46,8 +46,8 @@ public class VentanaPrincipal extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	public static JButton botonIniciarSesion = new JButton("IniciarSesion");
-	public JButton botonAlquilar = new JButton("Alquilar Productos");
-	public  JButton botonDevolver = new JButton("Devolver Productos");
+	public static JButton botonAlquilar = new JButton("Alquilar Productos");
+	public static JButton botonDevolver = new JButton("Devolver Productos");
 	public  Map<String,List<Producto>> mapaProductosUsuarios = new HashMap<>();
 	public static Usuario user = new Usuario();
 	
@@ -235,6 +235,7 @@ public class VentanaPrincipal extends JFrame{
 		 mapaUsuarioProductos.putIfAbsent(nombre_usuario, new ArrayList<>());
 		 mapaUsuarioProductos.get(nombre_usuario).add(p);
 	 }
+	 
 
 	
 	

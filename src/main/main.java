@@ -9,6 +9,9 @@ import javax.swing.SwingUtilities;
 
 
 import db.DBManager;
+import domain.Juego;
+import domain.Libro;
+import domain.Pelicula;
 import domain.Producto;
 import domain.Usuario;
 import gui.VentanaPrincipal;
@@ -16,7 +19,11 @@ import gui.VentanaPrincipal;
 public class main {
 	
 	public static List<Usuario> listaUsuarios ;
-	public static Map<String,List<Producto>> mapaProductosUsuario= new HashMap<>();
+	public static Map<String,List<Producto>> mapaProductosUsuario= new HashMap<>();// Se rellena con la bd
+	public static Map<String,List<Libro>> mapaLibrosUsuario= new HashMap<>();
+	public static Map<String,List<Juego>> mapaJuegosUsuario= new HashMap<>();
+	public static Map<String,List<Pelicula>> mapaPeliculasUsuario= new HashMap<>();
+	
 	
  	
 	public main() {
