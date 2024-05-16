@@ -6,8 +6,9 @@ public class DBCreator {
 	
 	
 	public static void main(String[] args) throws SQLException {
+		DBManager.EliminarTablaBd();
 		
-		DBManager.limpiarBd();
+		//DBManager.limpiarBd();
 		
 		System.out.println("Conectando con la base de datos...");
 		
@@ -40,8 +41,12 @@ public class DBCreator {
 		System.out.println("Copia de la tabla pelicula creada");
 		
 		DBManager.añadirLibrosDisponibles();
+		System.out.println("Libros añadidos a la tabla");
 		DBManager.añadirJuegosDisponibles();
+		System.out.println("Juegos añadidos a la tabla");
+		
 		DBManager.añadirPeliculasDisponibles();
+		System.out.println("Peliculas añadidos a la tabla");
 		
 		
 

@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import db.DBManager;
+import domain.Juego;
 import domain.Libro;
 import domain.Pelicula;
 import domain.Producto;
@@ -77,22 +78,23 @@ public DevolverProductos(Usuario user) {
 		   	Font fuente = new Font("Arial",Font.BOLD,18);
 		    label.setFont(fuente);
 		    label.setLayout(new FlowLayout(FlowLayout.CENTER));
-			JButton alquilar = new JButton("Devolver");
+			JButton devolver = new JButton("Devolver");
 			ImageIcon icono = new ImageIcon("resorces/images/iconos/devolver.png");
-			alquilar.setIcon(icono);
-			alquilar.setBackground(Color.white);
+			devolver.setIcon(icono);
+			devolver.setBackground(Color.white);
 			
 			
 			panelPrincipal.add(panelNorte,BorderLayout.NORTH);
 			panelNorte.add(menuBar);
 			panelNorte.add(label);
-			panelNorte.add(alquilar);
+			panelNorte.add(devolver);
 			DefaultTableModel modeloProducto = new DefaultTableModel();
 		
 		        // Añadir columnas al modelo de tabla
 		        modeloProducto.addColumn("ID");
 		        modeloProducto.addColumn("Nombre");
 		        modeloProducto.addColumn("Precio");
+		        modeloProducto.addColumn("Tipo");
 		
 		        // Añadir filas al modelo de tabla
 		      
@@ -118,14 +120,83 @@ public DevolverProductos(Usuario user) {
 						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
 						// TODO Auto-generated method stub
 						Map<String,List<Producto>> mapaProductos = main.main.mapaProductosUsuario;
+						
 						System.out.println(mapaProductos);
 					        // Actualiza la tabla con la nueva lista de libros.
 					    actualizarTablaProducto(mapaProductos,user.getNombreUsuario(),modeloProducto);
 						panelPrincipal.add(scrollPane,BorderLayout.CENTER);
 						panelPrincipal.revalidate();
 				        panelPrincipal.repaint();
+				        
+				        devolver.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								int filaSeleccionada = tablaProducto.getSelectedRow();
+								if(filaSeleccionada!=-1) {
+									Producto objLibro = new Libro();
+									Producto objJuego = new Juego();
+									Producto objPelicula = new Pelicula();
+									
+									if(tablaProducto.getValueAt(filaSeleccionada, 3).toString().toLowerCase().equals("libro") ) {
+										int id = (Integer) tablaProducto.getValueAt(filaSeleccionada,0);
+										System.out.println(id);
+										objLibro = DBManager.obtenerLibroBD(id);
+										DBManager.modificarAlquiler2EnTablaLibro(id);
+										DBManager.eliminarAlquiler(id);
+									}else if (tablaProducto.getValueAt(filaSeleccionada, 3).toString().toLowerCase().equals("juego") ) {
+										int id = (Integer) tablaProducto.getValueAt(filaSeleccionada,0);
+										objJuego = DBManager.obtenerJuegoBD(id);
+										DBManager.modificarAlquiler2EnTablaJuego(id);
+										DBManager.eliminarAlquiler(id);
+									}else if(tablaProducto.getValueAt(filaSeleccionada, 3).toString().toLowerCase().equals("pelicula")) {
+										int id = (Integer) tablaProducto.getValueAt(filaSeleccionada,0);
+										objPelicula = DBManager.obtenerPeliculaBD(id);
+										DBManager.modificarAlquiler2EnTablaPelicula(id);
+										DBManager.eliminarAlquiler(id);
+									}
+										
+									
+									modeloProducto.removeRow(filaSeleccionada);
+									panelPrincipal.revalidate();
+									panelPrincipal.repaint();
+									
+								/*	for(List<Producto> productos : mapaProductos.values()) {
+										for(Producto product : productos) {
+											if(product.getId() == p.getId()) {
+												System.out.println(product +"()()"+p);
+												if(product instanceof Libro) {
+													Libro libro = DBManager.obtenerLibroCopiaBD(p.getId());
+													System.out.println(libro.getId());
+													DBManager.insertarLibro(libro);
+												}else if (product instanceof Juego) {
+													Juego juego = DBManager.obtenerJuegoCopiaBD(p.getId());
+													System.out.println(juego.getId());
+													DBManager.insertarJuego(juego);
+												}else if(product instanceof Pelicula) {
+													Pelicula pelicula = DBManager.obtenerPeliculaCopiaBD(p.getId());
+													System.out.println(pelicula.getId());
+													DBManager.insertarPelicula(pelicula);
+												}else{
+													System.out.println("P es nulo");
+												}
+											}
+										}
+									}*/	
+									
+									
+								}
+							}
+						});
 					}
+			
+					
+					
+					
 				});
+		        
+		        
 		
 		
 			setVisible(true);
@@ -143,7 +214,7 @@ public void actualizarTablaProducto(Map<String,List<Producto>> mapa, String nomb
     	
     		 List<Producto> listaProductosUsuario = mapa.get(nombre_usuario);
     		 for(Producto p:listaProductosUsuario) {
-    			 modeloProducto.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), });
+    			 modeloProducto.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), DBManager.obtenerTipoBD(p.getId()) });
     		 }
     	
     	 

@@ -71,8 +71,10 @@ public VentanaAdministrador() {
 			JButton VerProducto = new JButton("Ver Productos");
 			JButton EliminarUsuario = new JButton("Eliminar Usuario");
 			JButton HacerInforme = new JButton("Hacer Informe");
+			JButton AñadirProducto= new JButton("AñadirProducto");
 			panelSur.add(EliminarUsuario);
 			panelSur.add(HacerInforme);
+			panelSur.add(AñadirProducto);
 			
 			        
 			
@@ -206,7 +208,8 @@ public VentanaAdministrador() {
 						u.setApellidos((String) tablaUsuario.getValueAt(filaSeleccionada, 2));
 						u.setNombreUsuario((String) tablaUsuario.getValueAt(filaSeleccionada,3));  
 						u.setContraseña((String) tablaUsuario.getValueAt(filaSeleccionada,4));
-						JTextArea area = new JTextArea();
+						
+					JTextArea area = new JTextArea();
 					CrearInforme("Informe.txt",mapaProductosUsuario.get(u.getNombreUsuario()),u,area);
 					area.setEditable(false);
 					area.setLineWrap(true);
@@ -221,6 +224,17 @@ public VentanaAdministrador() {
 					
 				}
 			});
+	        
+	        AñadirProducto.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					VentanaAñadirProducto ventanaAñadirProducto = new VentanaAñadirProducto();
+					
+				}
+			});
 	       
 			
 			setVisible(true);
@@ -232,7 +246,7 @@ public VentanaAdministrador() {
 	
 }
 
-public void CrearInforme(String nombre,List<Producto> lista,Usuario u,JTextArea textArea) {
+ public void CrearInforme(String nombre,List<Producto> lista,Usuario u,JTextArea textArea) {
 	try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombre))) {
         // Escribir cada producto en el archivo
 			String Titulo = String.format("\t\t Informe del usuario %s\n", u.getNombre());

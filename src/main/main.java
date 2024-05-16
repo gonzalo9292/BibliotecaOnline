@@ -30,9 +30,10 @@ public class main {
 		//listaUsuarios = DBManager.obtenerUsuarios();
 		new VentanaPrincipal();
 		listaUsuarios = DBManager.obtenerTodosLosUsuarios();
+		System.out.println("Usuario que hay : \n");
 	    imprimirLista(listaUsuarios);
 	    for(Usuario u : listaUsuarios) {
-	    	List<Producto> listaProductosUsuario = DBManager.actualizarMapaUsuario(u.getNombreUsuario());
+	    	List<Producto> listaProductosUsuario = DBManager.ListaMapaUsuario(u.getNombreUsuario());
 	    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),u.getListaProductos());
 	    	mapaProductosUsuario.put(u.getNombreUsuario(), u.getListaProductos());
 	    	mapaProductosUsuario.get(u.getNombreUsuario()).addAll(listaProductosUsuario);

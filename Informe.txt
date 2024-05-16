@@ -1,0 +1,7 @@
+		 Informe del usuario g
+Datos personales: 53981834Y , g ,g ,g 
+Productos a su disposicion:
+1,1984,15,990000 
+36,The Legend of Zelda: Breath of the Wild,59,990000 
+37,Red Dead Redemption 2,49,990000 
+39,The Witcher 3: Wild Hunt,39,990000 

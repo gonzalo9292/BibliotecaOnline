@@ -129,6 +129,7 @@ public class AlquilarProductos extends JFrame{
 		     modeloLibro.addColumn("Nombre");
 		     modeloLibro.addColumn("Precio");
 		     modeloLibro.addColumn("Autor");
+		     modeloLibro.addColumn("Numero de paginas");
 
 		      // Añadir filas al modelo de tabla
         
@@ -150,6 +151,7 @@ public class AlquilarProductos extends JFrame{
 		     modeloJuego.addColumn("ID");
 		     modeloJuego.addColumn("Nombre");
 		     modeloJuego.addColumn("Precio");
+		     modeloJuego.addColumn("Compañia");
 		     modeloJuego.addColumn("Plataforma");
 
 		      // Añadir filas al modelo de tabla
@@ -171,6 +173,7 @@ public class AlquilarProductos extends JFrame{
 		     modeloPelicula.addColumn("ID");
 		     modeloPelicula.addColumn("Nombre");
 		     modeloPelicula.addColumn("Precio");
+		     modeloPelicula.addColumn("Director");
 		     modeloPelicula.addColumn("Duracion");
 
 		      // Añadir filas al modelo de tabla
@@ -240,11 +243,13 @@ public class AlquilarProductos extends JFrame{
 								
 								int filaSeleccionada = tablaLibro.getSelectedRow();
 								if(filaSeleccionada != -1) {
-									Producto p = new Producto();
-									p.setId((String) tablaLibro.getValueAt(filaSeleccionada,0));  
-									p.setTitulo((String) tablaLibro.getValueAt(filaSeleccionada,1));
-									p.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
-									user.setListaProductos(p);
+									Libro libro = new Libro();
+									libro.setId((Integer) tablaLibro.getValueAt(filaSeleccionada,0));  
+									libro.setTitulo((String) tablaLibro.getValueAt(filaSeleccionada,1));
+									libro.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
+									libro.setAutor((String) tablaLibro.getValueAt(filaSeleccionada, 3));
+									libro.setNumPaginas((Integer) tablaLibro.getValueAt(filaSeleccionada, 4));
+									user.setListaProductos(libro);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
@@ -255,10 +260,10 @@ public class AlquilarProductos extends JFrame{
 								
 										
 										
-										String idLibro = (String) tablaLibro.getValueAt(filaSeleccionada,0);
-										DBManager.eliminarLibro(idLibro);
+										int idLibro = (Integer) tablaLibro.getValueAt(filaSeleccionada,0);
+										DBManager.modificarAlquilerEnTablaLibro(idLibro);
 										System.out.println(user.getNombreUsuario());
-										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), libro,"libro");
 										
 									
 										      
@@ -332,11 +337,14 @@ public class AlquilarProductos extends JFrame{
 								
 								int filaSeleccionada = tablaJuego.getSelectedRow();
 								if(filaSeleccionada != -1) {
-									Producto p = new Producto();
-									p.setId((String) tablaJuego.getValueAt(filaSeleccionada,0));  
-									p.setTitulo((String) tablaJuego.getValueAt(filaSeleccionada,1));
-									p.setPrecio((double) tablaJuego.getValueAt(filaSeleccionada, 2));
-									user.setListaProductos(p);
+									Juego juego = new Juego();
+									
+									juego.setId((Integer) tablaJuego.getValueAt(filaSeleccionada,0));  
+									juego.setTitulo((String) tablaJuego.getValueAt(filaSeleccionada,1));
+									juego.setPrecio((double) tablaJuego.getValueAt(filaSeleccionada, 2));
+									juego.setCompania((String) tablaJuego.getValueAt(filaSeleccionada, 3));
+									juego.setPlataforma((String) tablaJuego.getValueAt(filaSeleccionada, 4));
+									user.setListaProductos(juego);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
@@ -347,10 +355,10 @@ public class AlquilarProductos extends JFrame{
 								
 										
 										
-										String idJuego = (String) tablaJuego.getValueAt(filaSeleccionada,0);
-										DBManager.eliminarJuego(idJuego);
+										int idJuego = (Integer) tablaJuego.getValueAt(filaSeleccionada,0);
+										DBManager.modificarAlquilerEnTablaJuego(idJuego);
 										System.out.println(user.getNombreUsuario());
-										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), juego,"juego");
 										
 									
 										      
@@ -393,7 +401,7 @@ public class AlquilarProductos extends JFrame{
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
 								List<Pelicula> listaPeliculas2 = OrdenarPeliculasDeMayoraMenor(listaPeliculas);
-								 actualizarTablaPeliculas(listaPeliculas2,modeloLibro);
+								 actualizarTablaPeliculas(listaPeliculas2,modeloPelicula);
 									panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
 									panelPrincipal.revalidate();
 							        panelPrincipal.repaint();
@@ -406,7 +414,7 @@ public class AlquilarProductos extends JFrame{
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
 								List<Pelicula> listaPeliculas2 = OrdenarPeliculasDeMenoraMayor(listaPeliculas);                   
-								 actualizarTablaPeliculas(listaPeliculas2,modeloLibro);
+								 actualizarTablaPeliculas(listaPeliculas2,modeloPelicula);
 									panelPrincipal.add(scrollPanelPelicula,BorderLayout.CENTER);
 									panelPrincipal.revalidate();
 							        panelPrincipal.repaint();
@@ -423,11 +431,13 @@ public class AlquilarProductos extends JFrame{
 								
 								int filaSeleccionada = tablaPelicula.getSelectedRow();
 								if(filaSeleccionada != -1) {
-									Producto p = new Producto();
-									p.setId((String) tablaPelicula.getValueAt(filaSeleccionada,0));  
-									p.setTitulo((String) tablaPelicula.getValueAt(filaSeleccionada,1));
-									p.setPrecio((double) tablaPelicula.getValueAt(filaSeleccionada, 2));
-									user.setListaProductos(p);
+									Pelicula pelicula = new Pelicula();
+									pelicula.setId((Integer) tablaPelicula.getValueAt(filaSeleccionada,0));  
+									pelicula.setTitulo((String) tablaPelicula.getValueAt(filaSeleccionada,1));
+									pelicula.setPrecio((double) tablaPelicula.getValueAt(filaSeleccionada, 2));
+									pelicula.setDirector((String) tablaPelicula.getValueAt(filaSeleccionada, 3));
+									pelicula.setDuracion((Integer) tablaPelicula.getValueAt(filaSeleccionada, 4));
+									user.setListaProductos(pelicula);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
@@ -438,10 +448,10 @@ public class AlquilarProductos extends JFrame{
 								
 										
 										
-										String idPelicula = (String) tablaPelicula.getValueAt(filaSeleccionada,0);
-										DBManager.eliminarPelicula(idPelicula);
+										int idPelicula = (Integer) tablaPelicula.getValueAt(filaSeleccionada,0);
+										DBManager.modificarAlquilerEnTablaPelicula(idPelicula);
 										System.out.println(user.getNombreUsuario());
-										DBManager.RegistrarAlquiler(user.getNombreUsuario(), p);
+										DBManager.RegistrarAlquiler(user.getNombreUsuario(), pelicula,"pelicula");
 										
 									
 										      
@@ -482,7 +492,7 @@ public class AlquilarProductos extends JFrame{
  
       	
       	 for(Libro l : lista) {
-      	        modeloLibro.addRow(new Object[] {l.getId(), l.getTitulo(), l.getPrecio(), l.getAutor()});
+      	        modeloLibro.addRow(new Object[] {l.getId(), l.getTitulo(), l.getPrecio(), l.getAutor(),l.getNumPaginas()});
       	    }
       	
       }
@@ -492,7 +502,7 @@ public class AlquilarProductos extends JFrame{
      
         	
         	 for(Juego j : lista) {
-        	        modeloJuego.addRow(new Object[] {j.getId(), j.getTitulo(), j.getPrecio(), j.getPlataforma()});
+        	        modeloJuego.addRow(new Object[] {j.getId(), j.getTitulo(), j.getPrecio(),j.getCompania() ,j.getPlataforma()});
         	    }
         	
         }
@@ -501,7 +511,7 @@ public class AlquilarProductos extends JFrame{
        
         	
         	 for(Pelicula p : lista) {
-        	        modeloPelicula.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), p.getDuracion()});
+        	        modeloPelicula.addRow(new Object[] {p.getId(), p.getTitulo(), p.getPrecio(), p.getDirector(),p.getDuracion()});
         	    }
         	
         	 
