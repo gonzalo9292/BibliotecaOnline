@@ -124,14 +124,20 @@ public class VentanaAñadirLibro extends JFrame {
 			    nuevoLibro.setAutor(txtAutor.getText());
 			    
 			    // Obtener el número de páginas después de asignar el ID
-			    nuevoLibro.setId(Producto.getContadorProducto()); // Asignar el ID automáticamente
+			    // Asignar el ID automáticamente
 			    nuevoLibro.setNumPaginas(Integer.parseInt(txtNumeroDePaginas.getText()));
 			    
-			    // Incrementar el contador de productos después de asignar el ID
-			    Producto.setContadorProducto(Producto.getContadorProducto() + 1);
+			    int idLibro =  DBManager.devolverUltimoId() +1;
+			    System.out.println(idLibro);
+			    nuevoLibro.setId(idLibro);
+			    
 			    
 			    // Insertar el libro en la base de datos
 			    DBManager.insertarLibro(nuevoLibro);
+			    txtTitulo.setText("");
+			    txtPrecio.setText("");
+			    txtAutor.setText("");
+			    txtNumeroDePaginas.setText("");
 			}
 
 		});

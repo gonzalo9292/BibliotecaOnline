@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,8 @@ import domain.Producto;
 import domain.Usuario;
 
 public class DBManager {
-	
+	public static List<Usuario> listaUsuarios ;
+	public static Map<String,List<Producto>> mapaProductosUsuario= new HashMap<>();// Se rellena con la bd
 
 	private static final String URL = "jdbc:sqlite:resorces/db/basededatos.db";
 	
@@ -606,12 +609,17 @@ public class DBManager {
 		
 		   
 		public static void eliminarUsuario(String nombre_usuario,String contraseña) {
-			String sql = "DELETE FROM Usuario WHERE nombre_usuario = ? AND contrasena;";
+			String sqlU = "DELETE FROM Usuario WHERE nombre_usuario = ? AND contrasena= ?;";
+			String sqlA = "DELETE FROM Alquiler WHERE nombre_usuario = ?;";
 			try (Connection conn = obtenerConexion();
-					PreparedStatement pstmt = conn.prepareStatement(sql)){
-				pstmt.setString(1, nombre_usuario);
-				pstmt.setString(2, contraseña);
-				pstmt.executeUpdate();
+					PreparedStatement pstmtU = conn.prepareStatement(sqlU)){
+				PreparedStatement pstmtA = conn.prepareStatement(sqlA);
+				pstmtU.setString(1, nombre_usuario);
+				pstmtU.setString(2, contraseña);
+				pstmtU.executeUpdate();
+				
+				pstmtA.setString(1, nombre_usuario);
+				pstmtA.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -1087,13 +1095,14 @@ public class DBManager {
 		   public static void insertarLibro(Libro l) {
 				 {
 						//Añadir un existe usuario
-						String sql = "INSERT INTO Libro (id, titulo, precio, autor) VALUES (?, ?, ?, ?);";
+						String sql = "INSERT INTO Libro (id, titulo, precio, autor, numero_paginas) VALUES (?, ?, ?, ?, ?);";
 						try (Connection conn = obtenerConexion();
 								PreparedStatement pstmt = conn.prepareStatement(sql)){
-							//pstmt.setString(1, l.getId());
+							pstmt.setInt(1, l.getId());
 							pstmt.setString(2, l.getTitulo());
 							pstmt.setDouble(3, l.getPrecio());
 							pstmt.setString(4, l.getAutor());
+							pstmt.setInt(5, l.getNumPaginas());
 							pstmt.executeUpdate();
 							System.out.println("Se ha insertado con exito el libro");
 						} catch (SQLException e) {
@@ -1107,15 +1116,16 @@ public class DBManager {
 		   public static void insertarJuego(Juego j) {
 				 {
 						//Añadir un existe usuario
-						String sql = "INSERT INTO Juego (id, titulo, precio,  plataforma) VALUES (?, ?, ?, ?);";
+						String sql = "INSERT INTO Juego (id, titulo, precio, compania,  plataforma  ) VALUES (?, ?, ?, ?, ?);";
 						try (Connection conn = obtenerConexion();
 								PreparedStatement pstmt = conn.prepareStatement(sql)){
-							//pstmt.setString(1, j.getId());
+							pstmt.setInt(1, j.getId());
 							pstmt.setString(2, j.getTitulo());
 							pstmt.setDouble(3, j.getPrecio());
-							pstmt.setString(4, j.getPlataforma());
+							pstmt.setString(4, j.getCompania());
+							pstmt.setString(5, j.getPlataforma());
 							pstmt.executeUpdate();
-							System.out.println("Se ha insertado con exito el juego");
+							System.out.println("Se ha insertado con exito el Juego");
 						} catch (SQLException e) {
 							e.printStackTrace();
 						
@@ -1127,15 +1137,16 @@ public class DBManager {
 		   public static void insertarPelicula(Pelicula p) {
 				 {
 						//Añadir un existe usuario
-						String sql = "INSERT INTO Pelicula (id, titulo, precio,  duracion) VALUES (?, ?, ?, ?);";
+						String sql = "INSERT INTO Pelicula (id, titulo, precio,director, duracion ) VALUES (?, ?, ?, ? ,?);";
 						try (Connection conn = obtenerConexion();
 								PreparedStatement pstmt = conn.prepareStatement(sql)){
-							//pstmt.setString(1, p.getId());
+							pstmt.setInt(1, p.getId());
 							pstmt.setString(2, p.getTitulo());
 							pstmt.setDouble(3, p.getPrecio());
-							pstmt.setInt(4, p.getDuracion());
+							pstmt.setString(4, p.getDirector());
+							pstmt.setInt(5, p.getDuracion());
 							pstmt.executeUpdate();
-							System.out.println("Se ha insertado con exito el juego");
+							System.out.println("Se ha insertado con exito el Pelicula");
 						} catch (SQLException e) {
 							e.printStackTrace();
 						
@@ -1332,9 +1343,112 @@ public class DBManager {
 		
 		
 		
+	       public static Map<String,List<Producto>> datosDevoluciones(){
+	    	   listaUsuarios = DBManager.obtenerTodosLosUsuarios();
+				System.out.println("Usuario que hay : \n");
+			   ;
+			    for(Usuario u : listaUsuarios) {
+			    	List<Producto> listaProductosUsuario = DBManager.ListaMapaUsuario(u.getNombreUsuario());
+			    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),u.getListaProductos());
+			    	mapaProductosUsuario.put(u.getNombreUsuario(), u.getListaProductos());
+			    	mapaProductosUsuario.get(u.getNombreUsuario()).addAll(listaProductosUsuario);
+			    }
+			    System.out.println(mapaProductosUsuario);
+			    return mapaProductosUsuario;
+	       }
 		
-		
-		
+	   	
+			public static int devolverUltimoId(){
+				int resultId =0;
+				try(Connection conn = obtenerConexion();
+					Statement stmtL = conn.createStatement()){
+					Statement stmtJ = conn.createStatement();
+					Statement stmtP = conn.createStatement();
+					ResultSet rsL = stmtL.executeQuery("SELECT id FROM Libro Order by id DESC limit 1");
+					ResultSet rsJ = stmtJ.executeQuery("SELECT id FROM Juego  Order by id DESC limit 1");
+					ResultSet rsP = stmtP.executeQuery("SELECT id FROM  Pelicula Order by id DESC limit 1");
+								
+					int valorL = rsL.getInt("id");
+					int valorJ = rsJ.getInt("id");
+					int valorP = rsP.getInt("id");
+					
+					List<Integer> lsValores = Arrays.asList(valorL,valorJ,valorP);
+
+					for (int v:lsValores) {
+						if(v > resultId)
+							resultId = v;
+					}							
+					
+					
+					
+			} catch (SQLException e) {
+			
+				e.printStackTrace();
+			}
+				return resultId;
+		}
+			
+		/*	public static int devolverProductosTablas(String nombre_usuario){
+				int resultId =0;
+				try(Connection conn = obtenerConexion();
+						Statement stmt = conn.createStatement()){
+						ResultSet rsL = stmt.executeQuery("SELECT l.id FROM Libro Order by id DESC limit 1");
+						ResultSet rsJ = stmt.executeQuery("SELECT j.id FROM Juego  Order by id DESC limit 1");
+						ResultSet rsP = stmt.executeQuery("SELECT p.id FROM  Pelicula Order by id DESC limit 1");
+									
+						int valorL = rsL.getInt("id");
+						int valorJ = rsJ.getInt("id");
+						int valorP = rsP.getInt("id");
+						List<Integer> lsValores = Arrays.asList(valorL,valorJ,valorP);
+
+						for (int v:lsValores) {
+							if(v > resultId)
+								resultId = v;
+						}
+						
+						return resultId;
+						
+					
+					
+					
+					
+			} catch (SQLException e) {
+			
+				e.printStackTrace();
+			}
+				return resultId;
+		}*/
+			
+			public static void actualizarAlquileres(String nombreUsuario) {
+			    String actualizarLibros = "UPDATE Libro SET alquilado = 'N' WHERE id IN (SELECT id FROM Alquiler WHERE nombre_usuario = ? AND tipo = 'libro')";
+			    String actualizarJuegos = "UPDATE Juego SET alquilado = 'N' WHERE id IN (SELECT id FROM Alquiler WHERE nombre_usuario = ? AND tipo = 'juego')";
+			    String actualizarPeliculas = "UPDATE Pelicula SET alquilado = 'N' WHERE id IN (SELECT id FROM Alquiler WHERE nombre_usuario = ? AND tipo = 'pelicula')";
+
+			    try (Connection conn = obtenerConexion()) {
+			        // No es necesario desactivar autoCommit ya que no se usarán transacciones explícitas
+
+			        try (PreparedStatement stmtLibros = conn.prepareStatement(actualizarLibros);
+			             PreparedStatement stmtJuegos = conn.prepareStatement(actualizarJuegos);
+			             PreparedStatement stmtPeliculas = conn.prepareStatement(actualizarPeliculas)) {
+
+			            // Establecer el parámetro para los PreparedStatements
+			            stmtLibros.setString(1, nombreUsuario);
+			            stmtJuegos.setString(1, nombreUsuario);
+			            stmtPeliculas.setString(1, nombreUsuario);
+
+			            // Ejecutar las actualizaciones
+			            stmtLibros.executeUpdate();
+			            stmtJuegos.executeUpdate();
+			            stmtPeliculas.executeUpdate();
+
+			        } catch (SQLException e) {
+			            e.printStackTrace();
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }
+			}
+
 		
 		
 }

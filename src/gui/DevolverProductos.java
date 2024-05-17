@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.server.RemoteStub;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,9 @@ public class DevolverProductos extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Map<String,List<Producto>> mapaProductosUsuario;
 	private Usuario user;
+	public static List<Usuario> listaUsuarios ;
+	public static Map<String,List<Producto>> mapaProductosUsuarios= new HashMap<>();// Se rellena con la bd
 	
 	
 public DevolverProductos(Usuario user) {
@@ -118,12 +120,13 @@ public DevolverProductos(Usuario user) {
 						
 						panelPrincipal.removeAll();
 						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
-						// TODO Auto-generated method stub
-						Map<String,List<Producto>> mapaProductos = main.main.mapaProductosUsuario;
+
+						mapaProductosUsuarios = DBManager.datosDevoluciones();
 						
-						System.out.println(mapaProductos);
+						
+						System.out.println(mapaProductosUsuarios);
 					        // Actualiza la tabla con la nueva lista de libros.
-					    actualizarTablaProducto(mapaProductos,user.getNombreUsuario(),modeloProducto);
+					    actualizarTablaProducto(mapaProductosUsuarios,user.getNombreUsuario(),modeloProducto);
 						panelPrincipal.add(scrollPane,BorderLayout.CENTER);
 						panelPrincipal.revalidate();
 				        panelPrincipal.repaint();
@@ -223,7 +226,7 @@ public void actualizarTablaProducto(Map<String,List<Producto>> mapa, String nomb
     }
 
        
-       
+
        
 	
 }

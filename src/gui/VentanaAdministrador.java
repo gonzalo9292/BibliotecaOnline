@@ -111,9 +111,9 @@ public VentanaAdministrador() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
 					
-					actualizarTablaUsuario(main.listaUsuarios, modeloUsuario);
+					
+					actualizarTablaUsuario(DBManager.obtenerTodosLosUsuarios(), modeloUsuario);
 					
 				}
 			});
@@ -122,10 +122,10 @@ public VentanaAdministrador() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
+			
 	
-					
-					Map<String,List<Producto>> mapaProductosUsuario = main.mapaProductosUsuario;
+				if(tablaUsuario.getSelectedRow() >=0){
+					Map<String,List<Producto>> mapaProductosUsuario = DBManager.datosDevoluciones();
 					panelCentral.removeAll();
 					DefaultTableModel modeloProducto = new DefaultTableModel();
 					
@@ -154,8 +154,21 @@ public VentanaAdministrador() {
 			  
 			        panelCentral.add(scrollPane);
 			        panelPrincipal.revalidate();
-			        panelPrincipal.repaint();}
-				}
+			        panelPrincipal.repaint();
+			        panelNorte.revalidate();
+			        panelNorte.repaint();
+			        panelSur.repaint();
+			        panelCentral.repaint();
+			        
+			        }
+					
+					
+				}else {
+		        	JOptionPane.showMessageDialog(null, "Selecciona un usuario","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
+					
+		        }
+					
+			}
 			});
 	        EliminarUsuario.addActionListener(new ActionListener() {
 				
@@ -173,13 +186,13 @@ public VentanaAdministrador() {
 						u.setContraseña((String) tablaUsuario.getValueAt(filaSeleccionada,4));
 					
 						if(u!= null) {
-							Map<String,List<Producto>> mapaProductosUsuario = main.mapaProductosUsuario;
+							Map<String,List<Producto>> mapaProductosUsuario = DBManager.datosDevoluciones();
 							
 						 //   DBManager.añadirTrasEliminar(mapaProductosUsuario.get(u.getNombreUsuario()));
 							
-							
-						//	DBManager.eliminarUsuario(u.getNombreUsuario(), u.getContraseña());
-						//	DBManager.ActualizarBdAlEliminarUusario();
+							DBManager.actualizarAlquileres(u.getNombreUsuario());
+							DBManager.eliminarUsuario(u.getNombreUsuario(), u.getContraseña());
+				
 							
 							modeloUsuario.removeRow(filaSeleccionada);
 							panelPrincipal.revalidate();
@@ -197,7 +210,7 @@ public VentanaAdministrador() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Map<String,List<Producto>> mapaProductosUsuario = main.mapaProductosUsuario;
+					Map<String,List<Producto>> mapaProductosUsuario = DBManager.datosDevoluciones();
 					// TODO Auto-generated method stub
 					int filaSeleccionada = tablaUsuario.getSelectedRow();
 					if(filaSeleccionada!=-1) {

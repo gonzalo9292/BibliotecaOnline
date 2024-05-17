@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,6 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import db.DBManager;
+import domain.Juego;
+import domain.Pelicula;
+import domain.Producto;
 
 public class VentanaAñadirPelicula extends JFrame {
 
@@ -34,13 +41,13 @@ public class VentanaAñadirPelicula extends JFrame {
 		AñadirPelicula.setForeground(Color.WHITE);
 		Font fuente = new Font("Arial",Font.BOLD,30);
         AñadirPelicula.setFont(fuente);
-		JLabel Id = new JLabel            ("               Id :              ");
+		
 		JLabel Titulo = new JLabel         ("            Titulo :           ");
 		JLabel Precio = new JLabel       ("           Precio :          ");
 		JLabel Director = new JLabel        ("            Director:              ");
 		JLabel Duracion = new JLabel     ("   Duracion:");
 		
-		JTextField txtId = new JTextField(14);
+	
 		JTextField txtTitulo= new JTextField(14);
 		JTextField txtPrecio= new JTextField(14);
 		JTextField txtDirector= new JTextField(14);
@@ -53,7 +60,7 @@ public class VentanaAñadirPelicula extends JFrame {
 		
 		JPanel pAñadirPelicula = new JPanel();
 		pAñadirPelicula.setBackground(Color.darkGray);
-		JPanel pId = new JPanel();
+		
 		JPanel pTitulo= new JPanel();
 		JPanel pPrecio = new JPanel();
 		JPanel pDirector = new JPanel();
@@ -66,9 +73,7 @@ public class VentanaAñadirPelicula extends JFrame {
 		pAñadirPelicula.setLayout(new FlowLayout());
 		pAñadirPelicula.add(AñadirPelicula);
 		
-		pId.setLayout(new FlowLayout());
-		pId.add(Id);
-		pId.add(txtId);
+		
 		
 		pTitulo.setLayout(new FlowLayout());
 		pTitulo.add(Titulo);
@@ -87,16 +92,16 @@ public class VentanaAñadirPelicula extends JFrame {
 		pDuracion.add(txtDuracion);
 		
 
-		JButton añadirLibro = new JButton("Añadir Libro");
+		JButton añadirPelicula = new JButton("Añadir Pelicula");
 
 		
 		pBoton.setLayout(new FlowLayout());
-		pBoton.add(añadirLibro);
+		pBoton.add(añadirPelicula);
 		
 		central.setLayout(new GridLayout(7, 1));
 		
 		central.add(pAñadirPelicula);
-		central.add(pId);
+		
 		central.add(pTitulo);
 		central.add(pPrecio);
 		central.add(pDirector);
@@ -105,6 +110,29 @@ public class VentanaAñadirPelicula extends JFrame {
 		
 		add(central);
 		pack();
+		añadirPelicula.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 Pelicula nuevoPelicula = new Pelicula();
+				    nuevoPelicula.setTitulo(txtTitulo.getText());
+				    nuevoPelicula.setPrecio(Double.parseDouble(txtPrecio.getText()));
+				    nuevoPelicula.setDirector(txtDirector.getText());
+				    nuevoPelicula.setDuracion(Integer.parseInt(txtDuracion.getText()));
+				    
+				    int idPelicula =  DBManager.devolverUltimoId() +1;
+				    nuevoPelicula.setId(idPelicula);
+				    
+				    
+				    // Insertar el libro en la base de datos
+				    DBManager.insertarPelicula(nuevoPelicula);
+				    txtTitulo.setText("");
+				    txtPrecio.setText("");
+				    txtDirector.setText("");
+				    txtDuracion.setText("");
+			}
+		});
 		
 		setVisible(true);
 		
