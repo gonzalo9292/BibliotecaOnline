@@ -1349,7 +1349,7 @@ public class DBManager {
 			   ;
 			    for(Usuario u : listaUsuarios) {
 			    	List<Producto> listaProductosUsuario = DBManager.ListaMapaUsuario(u.getNombreUsuario());
-			    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),u.getListaProductos());
+			    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),new ArrayList<Producto>());
 			    	mapaProductosUsuario.put(u.getNombreUsuario(), u.getListaProductos());
 			    	mapaProductosUsuario.get(u.getNombreUsuario()).addAll(listaProductosUsuario);
 			    }

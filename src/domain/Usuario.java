@@ -22,8 +22,11 @@ public class Usuario {
 	public List<Producto> getListaProductos() {
 		return listaProductos;
 	}
-	public void setListaProductos(Producto p) {
+	public void setListaProducto(Producto p) {
 		this.listaProductos.add(p);
+	}
+	public void setListaProductos(List<Producto> lista) {
+		this.listaProductos.addAll(lista);
 	}
 	public Usuario(String dni, String nombre, String apellidos,  String nombreUsuario, String contraseña) {
 		super();

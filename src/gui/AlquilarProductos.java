@@ -249,7 +249,7 @@ public class AlquilarProductos extends JFrame{
 									libro.setPrecio((double) tablaLibro.getValueAt(filaSeleccionada, 2));
 									libro.setAutor((String) tablaLibro.getValueAt(filaSeleccionada, 3));
 									libro.setNumPaginas((Integer) tablaLibro.getValueAt(filaSeleccionada, 4));
-									user.setListaProductos(libro);
+									user.setListaProducto(libro);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
@@ -344,7 +344,7 @@ public class AlquilarProductos extends JFrame{
 									juego.setPrecio((double) tablaJuego.getValueAt(filaSeleccionada, 2));
 									juego.setCompania((String) tablaJuego.getValueAt(filaSeleccionada, 3));
 									juego.setPlataforma((String) tablaJuego.getValueAt(filaSeleccionada, 4));
-									user.setListaProductos(juego);
+									user.setListaProducto(juego);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));
@@ -437,7 +437,7 @@ public class AlquilarProductos extends JFrame{
 									pelicula.setPrecio((double) tablaPelicula.getValueAt(filaSeleccionada, 2));
 									pelicula.setDirector((String) tablaPelicula.getValueAt(filaSeleccionada, 3));
 									pelicula.setDuracion((Integer) tablaPelicula.getValueAt(filaSeleccionada, 4));
-									user.setListaProductos(pelicula);
+									user.setListaProducto(pelicula);
 									
 									for(Producto p2 : user.getListaProductos()) {
 										System.out.println(String.format("%s,%s,%f",p2.getId(),p2.getTitulo(),p2.getPrecio()));

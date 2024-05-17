@@ -106,70 +106,70 @@ public VentanaAdministrador() {
 	        JScrollPane scrollPane = new JScrollPane(tablaUsuario);
 	        panelCentral.add(scrollPane);
 	        
-	        
 	        MostrarUsuarios.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					
-					actualizarTablaUsuario(DBManager.obtenerTodosLosUsuarios(), modeloUsuario);
-					
-				}
-			});
-	        
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	           
+	                panelCentral.removeAll();
+	                
+	               
+	                
+	                
+	                panelCentral.add(scrollPane);
+
+	               
+	                actualizarTablaUsuario(DBManager.obtenerTodosLosUsuarios(), modeloUsuario);
+	                
+	               
+	                panelCentral.revalidate();
+	                panelCentral.repaint();
+	            }
+	        });
+
+	        // Acción para ver productos de un usuario seleccionado
 	        VerProducto.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-			
-	
-				if(tablaUsuario.getSelectedRow() >=0){
-					Map<String,List<Producto>> mapaProductosUsuario = DBManager.datosDevoluciones();
-					panelCentral.removeAll();
-					DefaultTableModel modeloProducto = new DefaultTableModel();
-					
-			        // Añadir columnas al modelo de tabla
-			        modeloProducto.addColumn("ID");
-			        modeloProducto.addColumn("Nombre");
-			        modeloProducto.addColumn("Precio");
-			        
-			        JTable tablaProducto = new JTable(modeloProducto);
-			        JScrollPane scrollPane = new JScrollPane(tablaProducto);
-					panelPrincipal.add(panelCentral);
-					
-					int filaSeleccionada = tablaUsuario.getSelectedRow();
-					if(filaSeleccionada!=-1) {
-						Usuario u = new Usuario();
-						
-						u.setDni((String) tablaUsuario.getValueAt(filaSeleccionada,0));  
-						u.setNombre((String) tablaUsuario.getValueAt(filaSeleccionada,1));
-						u.setApellidos((String) tablaUsuario.getValueAt(filaSeleccionada, 2));
-						u.setNombreUsuario((String) tablaUsuario.getValueAt(filaSeleccionada,3));  
-						u.setContraseña((String) tablaUsuario.getValueAt(filaSeleccionada,4));
-			     
-			        actualizarTablaProducto(mapaProductosUsuario,u.getNombreUsuario() , modeloProducto);
-			 
-	
-			  
-			        panelCentral.add(scrollPane);
-			        panelPrincipal.revalidate();
-			        panelPrincipal.repaint();
-			        panelNorte.revalidate();
-			        panelNorte.repaint();
-			        panelSur.repaint();
-			        panelCentral.repaint();
-			        
-			        }
-					
-					
-				}else {
-		        	JOptionPane.showMessageDialog(null, "Selecciona un usuario","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
-					
-		        }
-					
-			}
-			});
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                if (tablaUsuario.getSelectedRow() >= 0) {
+	                    // Obtener productos del usuario seleccionado
+	                    Map<String, List<Producto>> mapaProductosUsuario = DBManager.datosDevoluciones();
+	                    
+	                  
+	                    panelCentral.removeAll();
+	                    
+	          
+	                    DefaultTableModel modeloProducto = new DefaultTableModel();
+	                    modeloProducto.addColumn("ID");
+	                    modeloProducto.addColumn("Nombre");
+	                    modeloProducto.addColumn("Precio");
+	                    JTable tablaProducto = new JTable(modeloProducto);
+	                    JScrollPane scrollPaneProducto = new JScrollPane(tablaProducto);
+	                    
+	                    // Obtener el usuario seleccionado
+	                    int filaSeleccionada = tablaUsuario.getSelectedRow();
+	                    if (filaSeleccionada != -1) {
+	                        Usuario u = new Usuario();
+	                        u.setDni((String) tablaUsuario.getValueAt(filaSeleccionada, 0));
+	                        u.setNombre((String) tablaUsuario.getValueAt(filaSeleccionada, 1));
+	                        u.setApellidos((String) tablaUsuario.getValueAt(filaSeleccionada, 2));
+	                        u.setNombreUsuario((String) tablaUsuario.getValueAt(filaSeleccionada, 3));
+	                        u.setContraseña((String) tablaUsuario.getValueAt(filaSeleccionada, 4));
+	                        
+	                        
+	                        actualizarTablaProducto(mapaProductosUsuario, u.getNombreUsuario(), modeloProducto);
+	                        
+	                       
+	                        panelCentral.add(scrollPaneProducto);
+	                    }
+	                    
+	                    
+	                    panelCentral.revalidate();
+	                    panelCentral.repaint();
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Selecciona un usuario", "Inicio de sesión", JOptionPane.INFORMATION_MESSAGE);
+	                }
+	            }
+	        });
 	        EliminarUsuario.addActionListener(new ActionListener() {
 				
 				@Override
