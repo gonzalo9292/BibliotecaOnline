@@ -95,6 +95,10 @@ public class VentanaPrincipal extends JFrame{
 	        JButton botonAyuda = new JButton(new ImageIcon("resorces/images/iconos/icono2.png"));
 	        botonAyuda.setPreferredSize(new Dimension (26,26));
 			botonAyuda.setLayout(new FlowLayout(FlowLayout.LEFT));
+			
+		
+			
+			
 	       
 
 	     
@@ -105,6 +109,13 @@ public class VentanaPrincipal extends JFrame{
 			botonIniciarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			botonIniciarSesion.setIcon(new ImageIcon("resorces/images/iconos/usuario.png"));
 		    botonIniciarSesion.setPreferredSize(new Dimension(150,25));
+		    
+		    
+		    JButton botonCerrarSesion = new JButton();
+			botonCerrarSesion.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			botonCerrarSesion.setIcon(new ImageIcon("resorces/images/iconos/cerrar sesion.png"));
+		    botonCerrarSesion.setPreferredSize(new Dimension(50,25));
+		    
 	        JButton botonRegistrarse = new JButton("Registrarse");
 			botonRegistrarse.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			botonRegistrarse.setPreferredSize(new Dimension(150,25));
@@ -130,6 +141,7 @@ public class VentanaPrincipal extends JFrame{
 	        panelNorte.add(botonAyuda);
 	        panelNorte.add(titulo);
 	        panelNorte.add(botonRegistrarse);
+	        panelNorte.add(botonCerrarSesion);
 	     
 	        
 	  
@@ -153,6 +165,14 @@ public class VentanaPrincipal extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					new VentanaIniciarSesion(user);
 					
+				}
+			});
+	        botonCerrarSesion.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					botonIniciarSesion.setEnabled(true);
 				}
 			});
 	        
