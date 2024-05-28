@@ -1345,15 +1345,15 @@ public class DBManager {
 		
 	       public static Map<String,List<Producto>> datosDevoluciones(){
 	    	   listaUsuarios = DBManager.obtenerTodosLosUsuarios();
-				System.out.println("Usuario que hay : \n");
+			//	System.out.println("Usuario que hay : \n");
 			   ;
 			    for(Usuario u : listaUsuarios) {
 			    	List<Producto> listaProductosUsuario = DBManager.ListaMapaUsuario(u.getNombreUsuario());
 			    	mapaProductosUsuario.putIfAbsent(u.getNombreUsuario(),new ArrayList<Producto>());
-			    	mapaProductosUsuario.put(u.getNombreUsuario(), u.getListaProductos());
+			    	mapaProductosUsuario.put(u.getNombreUsuario(), new ArrayList<Producto>());
 			    	mapaProductosUsuario.get(u.getNombreUsuario()).addAll(listaProductosUsuario);
 			    }
-			    System.out.println(mapaProductosUsuario);
+			   // System.out.println(mapaProductosUsuario);
 			    return mapaProductosUsuario;
 	       }
 		

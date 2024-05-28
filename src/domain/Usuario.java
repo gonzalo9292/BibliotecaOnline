@@ -19,15 +19,7 @@ public class Usuario {
 	
 
 
-	public List<Producto> getListaProductos() {
-		return listaProductos;
-	}
-	public void setListaProducto(Producto p) {
-		this.listaProductos.add(p);
-	}
-	public void setListaProductos(List<Producto> lista) {
-		this.listaProductos.addAll(lista);
-	}
+
 	public Usuario(String dni, String nombre, String apellidos,  String nombreUsuario, String contraseña) {
 		super();
 		this.dni = dni;
@@ -83,8 +75,6 @@ public class Usuario {
 	}
 	
 
-
-
 	public String getContraseña() {
 		return contraseña;
 	}
@@ -92,6 +82,18 @@ public class Usuario {
 
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+	
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+	public void setListaProducto(Producto p) {
+		this.listaProductos.add(p);
+	}
+	
+	//Para añadir la lista entera 
+	public void setListaProductos(List<Producto> lista) {
+		this.listaProductos.addAll(lista);
 	}
 	
 	

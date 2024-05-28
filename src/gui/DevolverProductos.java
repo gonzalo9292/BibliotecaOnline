@@ -124,7 +124,7 @@ public DevolverProductos(Usuario user) {
 						mapaProductosUsuarios = DBManager.datosDevoluciones();
 						
 						
-						System.out.println(mapaProductosUsuarios);
+						//System.out.println(mapaProductosUsuarios);
 					        // Actualiza la tabla con la nueva lista de libros.
 					    actualizarTablaProducto(mapaProductosUsuarios,user.getNombreUsuario(),modeloProducto);
 						panelPrincipal.add(scrollPane,BorderLayout.CENTER);

@@ -10,9 +10,6 @@ public class Libro extends Producto{
 		
 	}
 
-
-	
-
 	public Libro(int id,String titulo, double precio, boolean alquilado, String autor, int numero_Paginas) {
 		super(id,titulo, precio, alquilado);
 		this.autor = autor;
@@ -20,17 +17,13 @@ public class Libro extends Producto{
 	}
 
 
-
-
 	public int getNumPaginas() {
 		return numero_Paginas;
 	}
 
-
 	public void setNumPaginas(int numero_Paginas) {
 		this.numero_Paginas = numero_Paginas;
 	}
-
 
 	public String getAutor() {
 		return autor;
@@ -39,9 +32,6 @@ public class Libro extends Producto{
 	public void setAutor(String autor) {
 		this.autor= autor;
 	}
-
-
-
 
 	@Override
 	public String toString() {

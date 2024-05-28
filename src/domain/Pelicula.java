@@ -12,15 +12,11 @@ public class Pelicula extends Producto{
 	}
 
 
-	
-
 	public Pelicula(int id,String titulo, double precio, boolean alquilado, String director, int duracion) {
 		super(id,titulo, precio, alquilado);
 		this.director = director;
 		this.duracion = duracion;
 	}
-
-
 
 
 	public String getDirector() {
@@ -43,7 +39,6 @@ public class Pelicula extends Producto{
 
 
 
-
 	@Override
 	public String toString() {
 		return "Pelicula [director=" + director + ", duracion=" + duracion + ", getId()=" + getId() + ", getTitulo()="
@@ -52,22 +47,5 @@ public class Pelicula extends Producto{
 
 
 
-
-	
-
-
-
-
-
-	/*public int getAnyo() {
-		return anyo;
-	}
-
-
-	public void setAnyo(int anyo) {
-		this.anyo = anyo;
-	}
-	*/
-	
 	
 }

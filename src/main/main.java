@@ -33,7 +33,7 @@ public class main {
 		List<Usuario> listaUsuarios = DBManager.obtenerTodosLosUsuarios();
 		
 		for(Usuario u : listaUsuarios) {
-			System.out.println(String.format("El usuario %s tiene estos productos:", u.getNombre()));
+			System.out.println(String.format("El usuario %s tiene estos productos:", u.getNombreUsuario()));
 			u.setListaProductos(DBManager.ListaMapaUsuario(u.getNombreUsuario()));
 			for(Producto p : u.getListaProductos()) {
 				System.out.println(p);
