@@ -126,8 +126,8 @@ public class UsuarioTest {
 
    @Test
    public void testToString() {
-       String expected = "Usuario [dni=12345678A, nombre=Gonzalo, apellidos=Arroyo, nombreUsuario=gonzaloarroyo, contraseña=password123]";
-       assertEquals(expected, usuario.toString());
+       String resultadoEsperado = "Usuario [dni=12345678A, nombre=Gonzalo, apellidos=Arroyo, nombreUsuario=gonzaloarroyo, contraseña=password123]";
+       assertEquals(resultadoEsperado, usuario.toString());
    }
 }
 

@@ -2,16 +2,16 @@ package domain;
 
 public abstract class Producto {
 	private static int contadorProducto = 111;
-	
-	
-	
-
-
 	private int id;
 	private String titulo;
 	private double precio;
 	private boolean alquilado;
 	
+	
+	
+	public Producto() {
+		
+	}
 	public Producto(int id,String titulo, double precio, boolean alquilado) {
 		super();
 		//this.id = contadorProducto;
@@ -22,10 +22,6 @@ public abstract class Producto {
 		this.setAlquilado(alquilado);
 	}
 
-	
-	public Producto() {}
-
-	
 	
 	public static int getContadorProducto() {
 		return contadorProducto;
