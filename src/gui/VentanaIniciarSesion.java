@@ -124,6 +124,9 @@ public VentanaIniciarSesion(Usuario user) {
 						VentanaAdministrador ventanaAdministrador = new VentanaAdministrador();
 						//VentanaPrincipal.botonAlquilar.setEnabled(false);
 						//VentanaPrincipal.botonDevolver.setEnabled(false);
+					}else {
+						JOptionPane.showMessageDialog(null, "El usuario o la contraseña no existen , prube otra vez o registrese","Inicio de sesion",JOptionPane.INFORMATION_MESSAGE);
+						dispose();
 					}
 					
 					

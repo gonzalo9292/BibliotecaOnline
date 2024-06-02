@@ -199,10 +199,13 @@ public VentanaAdministrador() {
 							panelPrincipal.repaint();
 						}else {
 							System.out.println("El usuario es nulo");
+							
 						}
 					
 					
 				
+					}else {
+						JOptionPane.showMessageDialog(null, "Selecciona un usuario", "Eliminar Usuario", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			});

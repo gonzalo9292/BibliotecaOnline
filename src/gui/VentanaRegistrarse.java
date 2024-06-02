@@ -52,7 +52,7 @@ public class VentanaRegistrarse extends JFrame{
 		
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setSize(375, 500);
-			setTitle("Sing Up");
+			setTitle("Registrarse");
 			 setLocation((int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 		                (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 			setVisible(true);
@@ -209,6 +209,7 @@ public class VentanaRegistrarse extends JFrame{
 						listaUsuarios.add(u);
 						DBManager.insertarUsuario(u);
 						JOptionPane.showMessageDialog(null, "Tu registro se ha realizado correctamente", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
 					}
 					
 				

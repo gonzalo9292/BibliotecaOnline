@@ -225,7 +225,7 @@ public class VentanaPrincipal extends JFrame{
 					// TODO Auto-generated method stub
 					
 					if(botonIniciarSesion.isEnabled()) {
-						JOptionPane.showMessageDialog(null, "Debes iniciar Sesion Antes", "Atencion!", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Debes iniciar Sesion Antes", "Atencion!", JOptionPane.INFORMATION_MESSAGE);
 					}else {
 						new AlquilarProductos(user);
 						
@@ -239,7 +239,13 @@ public class VentanaPrincipal extends JFrame{
 			     	@Override
 					public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					new DevolverProductos(user);
+
+						if(botonIniciarSesion.isEnabled()) {
+							JOptionPane.showMessageDialog(null, "Debes iniciar Sesion Antes", "Atencion!", JOptionPane.INFORMATION_MESSAGE);
+						}else{
+							new DevolverProductos(user);
+								}
+							
 				}
 				});
 	    }
