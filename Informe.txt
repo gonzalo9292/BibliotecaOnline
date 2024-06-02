@@ -1,0 +1,12 @@
+		 Informe del usuario g
+Datos personales: g , g ,g ,g 
+Productos a su disposicion:
+3,El señor de los anillos,20,000000 
+4,Crimen y castigo,18,750000 
+5,Don Quijote de la Mancha,14,990000 
+6,Las aventuras de Sherlock Holmes,10,250000 
+7,Moby Dick,16,500000 
+8,Anna Karenina,17,800000 
+11,La metamorfosis,9,750000 
+71,1984,15,990000 
+72,To Kill a Mockingbird,12,500000 
