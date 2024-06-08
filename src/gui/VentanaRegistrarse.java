@@ -65,7 +65,7 @@ public class VentanaRegistrarse extends JFrame{
 			JLabel DNI = new JLabel            ("               DNI :            ");
 			JLabel Nombre = new JLabel         ("            Nombre :        ");
 			JLabel Apellido = new JLabel       ("           Apellidos :       ");
-			JLabel FechaNacimiento = new JLabel("Fecha de Nacimiento:");
+			//JLabel FechaNacimiento = new JLabel("Fecha de Nacimiento:");
 			JLabel Usuario = new JLabel        ("Nombre de Usuario:  ");
 			JLabel Contraseña = new JLabel     ("        Contraseña:         ");
 			
@@ -74,7 +74,7 @@ public class VentanaRegistrarse extends JFrame{
 			JTextField txtApellido= new JTextField(14);
 			JTextField txtUsuario= new JTextField(14);
 			JTextField txtContraseña= new JTextField(14);
-			JTextField txtFecha= new JTextField(14);
+			//JTextField txtFecha= new JTextField(14);
 			
 			JButton btnRegistro = new JButton("Registrarse");
 			JButton PoliticaDePrivacidad = new JButton("--Politica de privacidad--");
@@ -118,9 +118,9 @@ public class VentanaRegistrarse extends JFrame{
 			pApellido.add(Apellido);
 			pApellido.add(txtApellido);
 			
-			pFecha.setLayout(new FlowLayout());
-			pFecha.add(FechaNacimiento);
-			pFecha.add(txtFecha);
+		//	pFecha.setLayout(new FlowLayout());
+		//	pFecha.add(FechaNacimiento);
+		//	pFecha.add(txtFecha);
 			
 			pNombreU.setLayout(new FlowLayout());
 			pNombreU.add(Usuario);
@@ -140,13 +140,13 @@ public class VentanaRegistrarse extends JFrame{
 			pBoton.setLayout(new FlowLayout());
 			pBoton.add(btnRegistro);
 			
-			central.setLayout(new GridLayout(12, 1));
+			central.setLayout(new GridLayout(9, 1));
 			
 			central.add(pRegistrarse);
 			central.add(pDNI);
 			central.add(pNombre);
 			central.add(pApellido);
-			central.add(pFecha);
+			//central.add(pFecha);
 			central.add(pNombreU);
 			central.add(pContraseña);
 			central.add(pAvisos);
@@ -158,8 +158,8 @@ public class VentanaRegistrarse extends JFrame{
 			
 								
 			btnRegistro.setEnabled(true);
-			String fecha= "yyyy-MM-dd";
-			txtFecha.setText(fecha);
+		//	String fecha= "yyyy-MM-dd";
+		//	txtFecha.setText(fecha);
 			
 	pack();
 			
@@ -204,6 +204,8 @@ public class VentanaRegistrarse extends JFrame{
 						JOptionPane.showMessageDialog(null, "Debes aceptar los terminos antes de registrarte", "Cuidado!", JOptionPane.WARNING_MESSAGE);
 					}else if(DBManager.existeUsuarioLogin(txtUsuario.getText(), txtContraseña.getText())) {
 						JOptionPane.showMessageDialog(null, "Este usuario ya esta registrado", "Cuidado!", JOptionPane.WARNING_MESSAGE);
+					}else if(txtUsuario.getText().isEmpty() || txtContraseña.getText().isEmpty()|| txtDNI.getText().isEmpty() || txtNombre.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Revisa que has rellenado todos los campos", "Cuidado!", JOptionPane.WARNING_MESSAGE);
 					}else {
 						Usuario u = new Usuario(txtDNI.getText(),txtNombre.getText(),txtApellido.getText(),txtUsuario.getText(),txtContraseña.getText());
 						listaUsuarios.add(u);

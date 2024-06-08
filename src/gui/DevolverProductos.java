@@ -122,6 +122,7 @@ public DevolverProductos(Usuario user) {
 						panelPrincipal.add(panelNorte,BorderLayout.NORTH);
 
 						mapaProductosUsuarios = DBManager.datosDevoluciones();
+					
 						
 						
 						//System.out.println(mapaProductosUsuarios);
